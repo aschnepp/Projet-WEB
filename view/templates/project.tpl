@@ -14,6 +14,12 @@
     <!-- Style -->
     <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat" as="style">
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+
+    <!-- PWA -->
+    <link rel="manifest" href="../PWA/manifest.json" />
+    <link rel="apple-touch-icon" href="../PWA/icons/apple-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#4CAF50">
 {/block}
 {block name=body}
     {include file="./header.tpl"}

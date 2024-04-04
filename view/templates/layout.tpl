@@ -13,4 +13,11 @@
     {/block}
 </body>
 
+{* Script service worker PWA *}
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('../PWA/service-worker.js')
+}
+</script>
+
 </html>
