@@ -54,6 +54,13 @@ class Cookie
 
         return $cookie;
     }
+
+    function removeCookie()
+    {
+        if (isset($_COOKIE['Login'])) {
+            unset($_COOKIE['Login']);
+        }
+    }
 }
 
 
