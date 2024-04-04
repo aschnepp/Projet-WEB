@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ID = $resultat->user_id;
 
     if ($resultat) {
-        $connexionAutho = 1;
         $hashedPasswordFromDb = $resultat->password;
 
         if (password_verify($password, $hashedPasswordFromDb)) {
