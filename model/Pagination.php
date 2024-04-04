@@ -16,21 +16,32 @@ class Pagination extends Model
 
         if (str_contains($url, "wishlist")) {
             $tableName = "Wishlists";
+        } else if (str_contains($url, "presentation-entreprise")) {
+            $tableName = "Reviews";
         } else {
             $tableName = "Candidates";
         }
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $perPage = 5;
+        $perPage = 1;
         // $start = ($page - 1) * $perPage;
         // $end = $start + $perPage;
 
-        $Cookie = new Cookie;
-        $id = $Cookie->get('ID');
-        //$id = 15;
-        // var_dump($id);
-
-        $nbOffers = count($this->select("{$tableName}", ['*'], "user_id = {$id}", false));
+        switch ($tableName) {
+            case "Candidates":
+            case "Wishlists":
+                $Cookie = new Cookie;
+                $id = $Cookie->get('ID');
+                //$id = 15;
+                // var_dump($id);
+                $nbOffers = count($this->select("{$tableName}", ['*'], "user_id = {$id}", false));
+                break;
+            case "Reviews":
+                //$firm_id = $_POST['id'];
+                $firm_id = 124;
+                $nbOffers = count($this->select("{$tableName}", ['*'], "firm_id = {$firm_id}", false));
+                break;
+        }
 
         $noResult = false;
         if ($nbOffers == 0) {
@@ -65,7 +76,6 @@ class Pagination extends Model
 
         $links .= "</div>";
 
-        echo $links;
         return $links;
     }
 }

@@ -81,5 +81,5 @@
                 vitae quas laboriosam id explicabo?</p>
         </section>
     </section>
-    {$pagination}
+    {$pagination nofilter}
 {/block}
