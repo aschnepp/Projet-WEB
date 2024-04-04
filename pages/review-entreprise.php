@@ -1,7 +1,7 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"] . "/controller/Cookie.php";
 require $_SERVER['DOCUMENT_ROOT'] . "/controller/SmartyCatalyst.php";
-require $_SERVER["DOCUMENT_ROOT"] . "/model/Model.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/model/Model.php";
 
 // Temporaire
 $entrepriseID = 13; // ID de l'entreprise
