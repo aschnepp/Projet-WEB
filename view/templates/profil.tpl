@@ -5,7 +5,7 @@
 {block name=head append}
     <meta name="description" content="Page de profil du site 'Stage Catalyst'">
     <link rel="stylesheet" href="../assets/styles/profil.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="/assets/scripts/cookies.js"></script>
 {/block}
 
 {block name=main}
@@ -70,7 +70,9 @@
             {/if}
         </section>
         <section id="btn-section">
-            <button><img src="../assets/fontawesome/svgs/solid/arrow-right-from-bracket.svg" alt="Icône 'Se déconnecter'">Se déconnecter</button>
+        <form id="myForm" method="post" onsubmit="disconnect(event)">
+            <button type="submit"><img src="../assets/fontawesome/svgs/solid/arrow-right-from-bracket.svg" alt="Icône 'Se déconnecter'">Se déconnecter</button>
+        </form>
         </section>
     </section>
 {/block}

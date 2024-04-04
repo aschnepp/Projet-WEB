@@ -59,6 +59,10 @@ class Cookie
     {
         if (isset($_COOKIE['Login'])) {
             unset($_COOKIE['Login']);
+            setcookie('Login', '', -1, '/');
+            return true;
+        } else {
+            return false;
         }
     }
 }
