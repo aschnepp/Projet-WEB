@@ -4,10 +4,11 @@ class Model
     protected PDO $pdo;
     protected array $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
+        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
     ];
 
-    
+
     protected string $key;
 
     public function __construct()
@@ -28,7 +29,7 @@ class Model
         }
     }
 
-    public function select(string $table, array $columns, string $condition = "", bool $unique = true)
+    public function select(string $table, array $columns, string $condition = "", bool $unique = true, array $args = [])
     {
         try {
             $columns = implode(",", $columns);
@@ -40,17 +41,16 @@ class Model
                 $sqlString .= ";";
             }
 
-
             $query = $this->pdo->prepare($sqlString);
             $query->execute();
             if ($unique) {
-                return $query->fetch(PDO::FETCH_OBJ);
+                return call_user_func_array([$query, "fetch"], $args);
             } else {
-                return $query->fetchAll(PDO::FETCH_OBJ);
+                return call_user_func_array([$query, "fetchAll"], $args);
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
-            exit('Erreur: ' . $e->getMessage());
+            exit($e->getMessage());
         }
     }
 
@@ -149,7 +149,7 @@ class Model
         }
     }
 
-    public function callProcedure(string $procedureName, array $parameters = [])
+    public function callProcedure(string $procedureName, array $parameters = [], bool $unique = false, array $args = [])
     {
         try {
             $sqlString = "CALL {$procedureName}(";
@@ -166,8 +166,12 @@ class Model
                 $i++;
             }
             $query->execute();
-
-            return $query->fetchAll(PDO::FETCH_OBJ);
+            if ($unique) {
+                return call_user_func_array([$query, "fetch"], $args);
+                # code...
+            } else {
+                return call_user_func_array([$query, "fetchAll"], $args);
+            }
         } catch (Exception $e) {
             error_log($e->getMessage());
             exit($e->getMessage());
