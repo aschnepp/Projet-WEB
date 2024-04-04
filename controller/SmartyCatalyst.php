@@ -4,6 +4,7 @@ require "{$_SERVER["DOCUMENT_ROOT"]}/libs/smarty/libs/bootstrap.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/Secteurs.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/Regions.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/User.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controller/Cookie.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php";
 
 class SmartyCatalyst extends Smarty
@@ -26,6 +27,23 @@ class SmartyCatalyst extends Smarty
         $this->registerPlugin("modifier", "htmlspecialchars", "htmlspecialchars");
 
         $this->model = $model;
+
+        $cookie = new Cookie();
+
+        $user = new User($this->model);
+
+        $cookie = $cookie->decodeCookieData();
+        if ($cookie == false) {
+            $connected = false;
+            $type = null;
+        } else {
+            $ID = $cookie->get("ID");
+            $connected = true;
+            $type = $user->userTypeGet($ID)->typeUtilisateur;
+        }
+
+        $this->assign("connected", $connected);
+        $this->assign("type", $type);
 
         #TODO : REMOVE THIS COMMENT WHEN READY FOR PRODUCTION
         #$this->caching = Smarty::CACHING_LIFETIME_CURRENT;
@@ -97,8 +115,7 @@ class SmartyCatalyst extends Smarty
 
     public function getProfil($userId)
     {
-        $Model = new Model;
-        $userModel = new User($Model);
+        $userModel = new User($this->model);
         return $userModel->selectFromUser(["*"], "user_id = " . $userId, true);
     }
 
