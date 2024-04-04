@@ -9,7 +9,7 @@ class Model
     ];
 
 
-    protected string $key;
+    public string $key;
 
     public function __construct()
     {

@@ -167,7 +167,7 @@ function TogglePopUpCompetencesCheckbox() {
 }
 
 function ChangerEtatBouton() {
-  var bouton = document.querySelector("#submit");
+  var boutons = document.querySelectorAll("button[name='submit']");
 
   function scrollTop() {
     window.scrollTo({
@@ -177,13 +177,19 @@ function ChangerEtatBouton() {
   }
 
   if (document.querySelector(".fa-times-circle")) {
-    bouton.setAttribute("type", "button");
-    bouton.addEventListener("click", scrollTop);
+    boutons.forEach((bouton) => {
+      bouton.setAttribute("type", "button");
+      bouton.addEventListener("click", scrollTop);
+    }
+    );
   } else {
-    bouton.removeEventListener("submit", scrollTop);
-    setTimeout(function () {
-      bouton.setAttribute("type", "submit");
-    }, 50);
+    boutons.forEach((bouton) => {
+      bouton.removeEventListener("submit", scrollTop);
+      setTimeout(function () {
+        bouton.setAttribute("type", "submit");
+      }, 50);
+    }
+    );
   }
 }
 

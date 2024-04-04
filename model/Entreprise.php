@@ -2,7 +2,7 @@
 
 require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php");
 
-class Offre
+class Entreprise
 {
     private Model $Model;
 
@@ -11,7 +11,7 @@ class Offre
         $this->Model = $model;
     }
 
-    public function insertOffer(array $data)
+    public function insertFirm(array $data)
     {
         try {
             $condition = "firm_name = '{$data['entreprise']}'";
@@ -106,7 +106,7 @@ class Offre
         }
     }
 
-    public function deleteOffer(int $id)
+    public function deleteFirm(int $id)
     {
         try {
             $condition = "offer_id = {$id}";
@@ -128,7 +128,7 @@ class Offre
         }
     }
 
-    public function updateOffer(array $data, int $id)
+    public function updateFirm(array $data, int $id)
     {
         try {
             $condition = "offer_id = '{$id}'";

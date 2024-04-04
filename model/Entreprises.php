@@ -4,10 +4,16 @@ require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php");
 
 class Entreprises
 {
+    private Model $Model;
+
+    public function __construct(Model $model)
+    {
+        $this->Model = $model;
+    }
+
     public function getEntreprisesOptions()
     {
-        $Model = new Model;
-        $entreprises = $Model->select("firms", ["*"], "", false);
+        $entreprises = $this->Model->select("firms", ["*"], "", false);
 
         foreach ($entreprises as $entreprise) {
             $entrepriseNom = htmlspecialchars($entreprise->firm_name, ENT_QUOTES, 'UTF-8');
@@ -19,12 +25,8 @@ class Entreprises
 
     public function getEntreprises()
     {
-        $Model = new Model;
-        $entreprises = $Model->select("firms", ["*"], "", false);
+        $entreprises = $this->Model->select("firms", ["*"], "", false);
 
         return $entreprises;
     }
 }
-
-$Entreprises = new Entreprises;
-$Entreprises->getEntreprises();
