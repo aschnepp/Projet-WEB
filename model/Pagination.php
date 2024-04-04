@@ -3,11 +3,13 @@
 require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php");
 require_once("{$_SERVER["DOCUMENT_ROOT"]}/controller/Cookie.php");
 
-class Pagination extends Model
+class Pagination
 {
-    public function __construct()
+    private $Model = new Model();
+
+    public function __construct(Model $model)
     {
-        parent::__construct();
+        $this->Model = $model;
     }
 
     public function getLinks()
@@ -34,12 +36,12 @@ class Pagination extends Model
                 $id = $Cookie->get('ID');
                 //$id = 15;
                 // var_dump($id);
-                $nbOffers = count($this->select("{$tableName}", ['*'], "user_id = {$id}", false));
+                $nbOffers = count($this->Model->select("{$tableName}", ['*'], "user_id = {$id}", false));
                 break;
             case "Reviews":
                 //$firm_id = $_POST['id'];
                 $firm_id = 124;
-                $nbOffers = count($this->select("{$tableName}", ['*'], "firm_id = {$firm_id}", false));
+                $nbOffers = count($this->Model->select("{$tableName}", ['*'], "firm_id = {$firm_id}", false));
                 break;
         }
 

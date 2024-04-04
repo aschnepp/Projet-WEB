@@ -13,7 +13,7 @@
         <div class="logo-container"></div>
         <section class="contentEntreprise">
             <section class="headerEntreprise">
-                <h2>CESI</h2>
+                <h2>{$entreprise[$nentreprise]->firm_name}</h2>
                 <section class="gradeWrapper">
                     <div class="rate2">
                     </div>
@@ -22,32 +22,26 @@
             <section class="bodyEntreprise">
                 <div class="items">
                     <img width="30" height="30" src="https://img.icons8.com/ios/45/domain.png" alt="domain" />
-                    <a href="https://www.amazon.fr/" target="_blank" class="website">amazon.com</a>
+                    <a href="{$entreprise[$nentreprise]->website}" target="_blank" class="website">amazon.com</a>
                 </div>
                 <div class="items">
                     <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/45/map-marker.png" alt="map-marker" />
-                    <p>2 allée des foulons, 67380 Lingolsheim</p>
+                    <p>{$entreprise[$nentreprise]->street_number} {$entreprise[$nentreprise]->street_name}, {$entreprise[$nentreprise]->postal_code} {$entreprise[$nentreprise]->city_name}</p>
                 </div>
                 <div class="items">
                     <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/45/client-company.png" alt="client-company" />
-                    <p>Education / Formation</p>
+                    <p>{$entreprise[$nentreprise]->activity_sector_name}</p>
                 </div>
                 <div class="items">
                     <img width="30" height="30" src="https://img.icons8.com/ios-filled/45/groups.png" alt="groups" />
-                    <p>30 personnes</p>
+                    <p>{$entreprise[$nentreprise]->total_postulations} personne(s)</p>
                 </div>
             </section>
         </section>
         <section class="description">
             <fieldset>
                 <legend>Description</legend>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus,
-                    neque tempora! Cum
-                    quae
-                    pariatur veniam enim vel amet eligendi fuga dolor suscipit ea? Fugiat unde ex expedita alias
-                    minus
-                    voluptatibus.
-                </p>
+                <p>{$entreprise[$nentreprise]->description_firm}</p>
             </fieldset>
         </section>
     </section>
