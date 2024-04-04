@@ -7,7 +7,7 @@
     <section id="header-milieu">
         {if isset($connected) && $connected}
             <input type="text" name="recherche" id="recherche" placeholder="Rechercher">
-            <a class="fa fa-search" id="loupe" aria-hidden="true" href="/pages/search.php"></a>
+            <a class="fa fa-search liens-header" id="loupe" aria-hidden="true" href="/pages/search.php"></a>
         {else}
         {/if}
     </section>

@@ -149,7 +149,7 @@ header > #header-droite > a.boutons-header:hover::after {
   left: 8px;
 }
 
-header > #header-droite a[class*="fa"]:hover {
+header a[class*="fa"]:hover {
   filter: invert(1);
 }
 
