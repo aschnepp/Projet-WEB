@@ -187,4 +187,10 @@ class SmartyCatalyst extends Smarty
     {
         return $this->model->select("promotions", ["promotion_name"], "", false);
     }
+
+    public function userTypeGet(int $ID)
+    {
+        $userModel = new User($this->model);
+        return $userModel->userTypeGet($ID);
+    }
 }
