@@ -5,13 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   ChoixFiltre();
 
+  console.log(skillnames[1]["skill_name"]);
+
   EtatFiltre.addEventListener("change", ChoixFiltre);
 });
 
 function ChoixFiltre() {
   var EtatFiltre = document.querySelector("#choix-recherche");
   var valeurSelectionnee = EtatFiltre.value;
-
   if (valeurSelectionnee === "menu-offre") {
     AfficherFiltresOffre();
   } else if (valeurSelectionnee === "menu-entreprise") {
@@ -55,7 +56,12 @@ function StatsEntreprisesOuOffres() {
 
 function AfficherFiltresOffre() {
   ClearRecherche();
-  document.querySelector("#recherche-menu").innerHTML = `                
+  let skillnameContent = "";
+  for (let i = 0; i < skillnames.length; i++) {
+    skillnameContent += `<option value="${skillnames[i]["skill_name"]}">${skillnames[i]["skill_name"]}</option>`;
+  }
+  document.querySelector("#recherche-menu").innerHTML =
+    `                
         <section>
         <label for="region-offre-recherche">Region</label>
         <input type="text" id="region-offre-recherche" list="region-datalist"
@@ -71,7 +77,10 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="competences-recherche">Compétences</label>
-        <select id="competences-recherche">
+        <select id="competences-recherche" multiple="true" size="7">
+        ` +
+    skillnameContent +
+    `
         </select>
     </section>
 
@@ -119,6 +128,7 @@ function AfficherFiltresOffre() {
     </section>
 
     <section id="boutons-filtre">
+        <input type="submit" name="rechercher" class="rechercher" value="Rechercher">
         <input type="reset" name="reset" id="reset-filtre" value="Réinitialiser">
         <input type="button" name="ajout" class="ajout" value="Ajouter offre"> 
         <a href="stats-offres.php" target="_blank" title="Statistiques d'offres" id="bouton-stats-offres">Statistiques d'offres</a>
@@ -357,6 +367,7 @@ function AfficherFiltresEntreprise() {
     </section>
 
     <section id="boutons-filtre">
+        <input type="submit" name="rechercher" class="rechercher" value="Rechercher">
         <input type="reset" name="reset" id="reset-filtre" value="Réinitialiser">
         <input type="button" name="ajout" class="ajout" value="Ajouter entreprise"> 
         <a href="stats-entreprise.php" target="_blank" title="Statistiques d'entreprise" id="bouton-stats-entreprise">Statistiques d'entreprises</a>
@@ -520,6 +531,7 @@ function AfficherFiltresTuteur() {
     </section>
 
     <section id="boutons-filtre">
+        <input type="submit" name="rechercher" class="rechercher" value="Rechercher">
         <input type="reset" name="reset" id="reset-filtre" value="Réinitialiser">
         <input type="button" name="ajout" class="ajout" value="Ajouter tuteur"> ` +
     StatsEntreprisesOuOffres() +
@@ -612,6 +624,7 @@ function AfficherFiltresEtudiant() {
     </section>
 
     <section id="boutons-filtre">
+        <input type="submit" name="rechercher" class="rechercher" value="Rechercher">
         <input type="reset" name="reset" id="reset-filtre" value="Réinitialiser">
         <input type="button" name="ajout" class="ajout" value="Ajouter etudiant"> ` +
     StatsEntreprisesOuOffres() +

@@ -33,8 +33,6 @@ if ($entreprise[0]->moyenne_notes) {
     $note = 0;
 }
 
-
-
 for ($i = ($page - 1) * $perPage; $i < ($page) * $perPage; $i++) {
     $Avis .= "<section class='avis-utilisateur'><section class='gradeWrapper' id='grade-" . $i + 1 . "'><div class='rate2'></div></section><p>" . $commentaires[$i]->comment . "</p></section>";
     $scriptNotes .= "<script>displayGrade(" . $commentaires[$i]->note . ", " . $i + 1 . ");</script>";

@@ -177,4 +177,14 @@ class SmartyCatalyst extends Smarty
     {
         return $this->model->select("Reviews", ["*"], "firm_id = {$firmId}", false);
     }
+
+    public function getSkillNames()
+    {
+        return $this->model->select("skills", ["skill_name"], "", false);
+    }
+
+    public function getPromotionsNames()
+    {
+        return $this->model->select("promotions", ["promotion_name"], "", false);
+    }
 }
