@@ -1,6 +1,6 @@
 <?php
 
-require $_SERVER["DOCUMENT_ROOT"] . "/controller/Cookie.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/controller/Cookie.php";
 require $_SERVER['DOCUMENT_ROOT'] . "/controller/SmartyCatalyst.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/model/User.php";
 
