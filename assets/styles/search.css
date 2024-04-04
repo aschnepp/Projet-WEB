@@ -91,7 +91,7 @@ main #affichage-filtre {
   max-height: calc(100vh - 60px - 30px);
 }
 
-main #affichage-filtre > section {
+main #affichage-filtre>section {
   border: solid black 2px;
   background-color: var(--blue-light);
 }
@@ -200,11 +200,7 @@ main #recherche-filtre-main #recherche-menu #boutons-filtre a:hover {
   text-decoration: underline;
 }
 
-main
-  #recherche-filtre-main
-  #recherche-menu
-  #statistiques-entreprises
-  #bouton-stats-entreprise:hover {
+main #recherche-filtre-main #recherche-menu #statistiques-entreprises #bouton-stats-entreprise:hover {
   padding: 0.75rem 1.65rem;
 }
 
@@ -247,6 +243,7 @@ main #recherche-filtre-main select {
 }
 
 main #recherche-filtre-main #recherche-menu #reset-filtre,
+main #recherche-filtre-main #recherche-menu .rechercher,
 main #recherche-filtre-main #recherche-menu .ajout,
 main #recherche-filtre-main #recherche-menu .modification {
   background-color: var(--blue-dark-contrast);
@@ -619,7 +616,7 @@ main #affichage-filtre .etudiant p {
   word-wrap: break-word;
 }
 
-main #affichage-filtre .etudiant > * {
+main #affichage-filtre .etudiant>* {
   margin: 0rem 1rem;
 }
 
@@ -631,7 +628,7 @@ main #affichage-filtre .etudiant .fa-user {
   width: 7.5rem;
 }
 
-main #affichage-filtre .etudiant > section {
+main #affichage-filtre .etudiant>section {
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
@@ -653,7 +650,7 @@ main #affichage-filtre .etudiant .infos-etudiant:last-child {
   word-break: break-all;
 }
 
-main #affichage-filtre .etudiant section > section {
+main #affichage-filtre .etudiant section>section {
   display: flex;
   justify-content: left;
   gap: 1rem;
@@ -661,7 +658,7 @@ main #affichage-filtre .etudiant section > section {
   flex-wrap: wrap;
 }
 
-main #affichage-filtre .etudiant section > section > p:first-child {
+main #affichage-filtre .etudiant section>section>p:first-child {
   font-weight: bold;
   text-decoration: underline;
 }
@@ -671,13 +668,13 @@ main #affichage-filtre .etudiant .boutons-etudiant {
 }
 
 @media only screen and (max-width: 850px) {
-  main #affichage-filtre .etudiant section > section {
+  main #affichage-filtre .etudiant section>section {
     justify-content: center;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  main #affichage-filtre .etudiant section > section {
+  main #affichage-filtre .etudiant section>section {
     gap: 0.5rem;
   }
 
@@ -692,7 +689,7 @@ main #affichage-filtre .etudiant .boutons-etudiant {
 }
 
 @media only screen and (max-width: 450px) {
-  main #affichage-filtre .etudiant section > section {
+  main #affichage-filtre .etudiant section>section {
     gap: 0.25rem;
   }
 
@@ -717,7 +714,7 @@ main #affichage-filtre .tuteur p {
   word-wrap: break-word;
 }
 
-main #affichage-filtre .tuteur > * {
+main #affichage-filtre .tuteur>* {
   margin: 0rem 1rem;
 }
 
@@ -729,7 +726,7 @@ main #affichage-filtre .tuteur .fa-user {
   width: 7.5rem;
 }
 
-main #affichage-filtre .tuteur > section {
+main #affichage-filtre .tuteur>section {
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
@@ -751,7 +748,7 @@ main #affichage-filtre .tuteur .infos-tuteur:last-child {
   word-break: break-all;
 }
 
-main #affichage-filtre .tuteur section > section {
+main #affichage-filtre .tuteur section>section {
   display: flex;
   justify-content: left;
   gap: 1rem;
@@ -759,7 +756,7 @@ main #affichage-filtre .tuteur section > section {
   flex-wrap: wrap;
 }
 
-main #affichage-filtre .tuteur section > section > p:first-child {
+main #affichage-filtre .tuteur section>section>p:first-child {
   font-weight: bold;
   text-decoration: underline;
 }
@@ -769,13 +766,13 @@ main #affichage-filtre .tuteur .boutons-tuteur {
 }
 
 @media only screen and (max-width: 850px) {
-  main #affichage-filtre .tuteur section > section {
+  main #affichage-filtre .tuteur section>section {
     justify-content: center;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  main #affichage-filtre .tuteur section > section {
+  main #affichage-filtre .tuteur section>section {
     gap: 0.5rem;
   }
 
@@ -790,7 +787,7 @@ main #affichage-filtre .tuteur .boutons-tuteur {
 }
 
 @media only screen and (max-width: 450px) {
-  main #affichage-filtre .tuteur section > section {
+  main #affichage-filtre .tuteur section>section {
     gap: 0.25rem;
   }
 
@@ -834,4 +831,9 @@ main #pagination a.active {
 main #pagination a.active:hover {
   background-color: var(--black);
   color: var(--white);
+}
+
+#competences-recherche {
+  display: flex;
+  height: 20%;
 }
