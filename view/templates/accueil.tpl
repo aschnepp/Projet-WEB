@@ -12,10 +12,8 @@
 
 {block name=main}
     {if isset($connected) && $connected}
-
         <h2>Bienvenue sur votre espace membre !</h2>
         <h3>Voici une offre qui pourrait vous interésser.</h3>
-
         <section id="fieldset-main">
             <fieldset>
                 <legend>Offre</legend>
