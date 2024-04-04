@@ -5,11 +5,17 @@ require_once("{$_SERVER["DOCUMENT_ROOT"]}/controller/Cookie.php");
 
 class Pagination
 {
-    private $Model = new Model();
+    private $Model;
+    private $perPage = 2;
 
     public function __construct(Model $model)
     {
         $this->Model = $model;
+    }
+
+    public function getPerPage()
+    {
+        return $this->perPage;
     }
 
     public function getLinks()
@@ -25,7 +31,6 @@ class Pagination
         }
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $perPage = 1;
         // $start = ($page - 1) * $perPage;
         // $end = $start + $perPage;
 
@@ -40,7 +45,7 @@ class Pagination
                 break;
             case "Reviews":
                 //$firm_id = $_POST['id'];
-                $firm_id = 124;
+                $firm_id = 27;
                 $nbOffers = count($this->Model->select("{$tableName}", ['*'], "firm_id = {$firm_id}", false));
                 break;
         }
@@ -50,7 +55,7 @@ class Pagination
             $noResult = true;
         }
 
-        $totalPages = ceil($nbOffers / $perPage);
+        $totalPages = ceil($nbOffers / $this->perPage);
         // var_dump($nbOffers);
         // var_dump($totalPages);
 

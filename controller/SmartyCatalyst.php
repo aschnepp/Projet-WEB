@@ -154,4 +154,9 @@ class SmartyCatalyst extends Smarty
         $user_ID == null ? $args[] = null : $args[] = $user_ID;
         return $this->model->callProcedure("getFirmReview", $args, true);
     }
+
+    public function getCommentaires(int $firmId)
+    {
+        return $this->model->select("Reviews", ["*"], "firm_id = {$firmId}", false);
+    }
 }

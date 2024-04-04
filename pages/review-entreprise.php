@@ -16,7 +16,11 @@ $cookie = new Cookie();
 $entreprise = $controller->reviewEntreprise($entrepriseID);
 $cookie = $cookie->decodeCookieData();
 $ID = $cookie->get("ID");
-$note = $entreprise[0]->moyenne_notes;
+if ($entreprise[0]->moyenne_notes) {
+    $note = $entreprise[0]->moyenne_notes;
+} else {
+    $note = 0;
+}
 $review = $controller->getReview($ID, $entrepriseID);
 
 // Si l'utilisateur a déjà donné un avis

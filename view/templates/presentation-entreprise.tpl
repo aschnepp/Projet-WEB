@@ -14,7 +14,7 @@
         <section class="contentEntreprise">
             <section class="headerEntreprise">
                 <h2>{$entreprise[$nentreprise]->firm_name}</h2>
-                <section class="gradeWrapper">
+                <section class="gradeWrapper" id="grade-0">
                     <div class="rate2">
                     </div>
                 </section>
@@ -22,7 +22,7 @@
             <section class="bodyEntreprise">
                 <div class="items">
                     <img width="30" height="30" src="https://img.icons8.com/ios/45/domain.png" alt="domain" />
-                    <a href="{$entreprise[$nentreprise]->website}" target="_blank" class="website">amazon.com</a>
+                    <a href="{$entreprise[$nentreprise]->website}" target="_blank" class="website">Site Web</a>
                 </div>
                 <div class="items">
                     <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/45/map-marker.png" alt="map-marker" />
@@ -47,33 +47,8 @@
     </section>
     <section id="avis">
         <h3>Avis :</h3>
-        <section class="avis-utilisateur">
-            <section class="gradeWrapper">
-                <div class="rate2">
-                </div>
-            </section>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui laboriosam minus ea itaque asperiores
-                illo quaerat! Consectetur, incidunt veritatis voluptatibus voluptatem ipsum, assumenda cum quae
-                vitae quas laboriosam id explicabo?</p>
-        </section>
-        <section class="avis-utilisateur">
-            <section class="gradeWrapper">
-                <div class="rate2">
-                </div>
-            </section>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui laboriosam minus ea itaque asperiores
-                illo quaerat! Consectetur, incidunt veritatis voluptatibus voluptatem ipsum, assumenda cum quae
-                vitae quas laboriosam id explicabo?</p>
-        </section>
-        <section class="avis-utilisateur">
-            <section class="gradeWrapper">
-                <div class="rate2">
-                </div>
-            </section>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui laboriosam minus ea itaque asperiores
-                illo quaerat! Consectetur, incidunt veritatis voluptatibus voluptatem ipsum, assumenda cum quae
-                vitae quas laboriosam id explicabo?</p>
-        </section>
+        {$avis nofilter}
+        {$scriptNotes nofilter}
     </section>
     {$pagination nofilter}
 {/block}
