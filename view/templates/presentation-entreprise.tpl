@@ -81,5 +81,5 @@
                 vitae quas laboriosam id explicabo?</p>
         </section>
     </section>
-    <button type="button" id="afficher-plus">+ Afficher plus</button>
+    {$pagination}
 {/block}

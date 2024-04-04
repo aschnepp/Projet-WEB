@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.5.1, created on 2024-04-04 22:01:21
+/* Smarty version 4.5.1, created on 2024-04-04 22:03:26
   from 'C:\Users\maxim\OneDrive\Documents\CESI\A2\4-Développement-WEB\Projet\Projet-WEB\view\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.5.1',
-  'unifunc' => 'content_660f0711363eb3_94400809',
+  'unifunc' => 'content_660f078e8cb902_75946492',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb31ee6ee427b40f3b21ea41ba56311bafd831c3' => 
     array (
       0 => 'C:\\Users\\maxim\\OneDrive\\Documents\\CESI\\A2\\4-Développement-WEB\\Projet\\Projet-WEB\\view\\templates\\header.tpl',
-      1 => 1712260875,
+      1 => 1712260888,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_660f0711363eb3_94400809 (Smarty_Internal_Template $_smarty_tpl) {
+function content_660f078e8cb902_75946492 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header>
     <section id="header-gauche">
         <a href="index.html" id="image-accueil"><img src="/assets/images/Logo.webp" alt="logo" id="logo" /></a>
