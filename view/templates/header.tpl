@@ -1,6 +1,6 @@
 <header>
     <section id="header-gauche">
-        <a href="index.html" id="image-accueil"><img src="/assets/images/Logo.webp" alt="logo" id="logo" /></a>
+        <a href="/index.php" id="image-accueil"><img src="/assets/images/Logo.webp" alt="logo" id="logo" /></a>
         <p id="header-p">Stage Catalyst</p>
     </section>
 
