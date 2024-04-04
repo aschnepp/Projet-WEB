@@ -1,7 +1,7 @@
 <?php
 
 require $_SERVER['DOCUMENT_ROOT'] . "/controller/SmartyCatalyst.php";
-require $_SERVER["DOCUMENT_ROOT"] . "/model/model.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/model/Model.php";
 
 $model = new Model();
 $controller = new SmartyCatalyst($model);
