@@ -22,14 +22,18 @@
 
         <!-- Contenu du header-droite -->
         {if isset($connected) && $connected}
-            <a class="fa fa-heart liens-header" id="wishlist" aria-hidden="true" rel="preconnect" href="test.html"></a>
+            <a class="fa fa-heart liens-header" id="wishlist" aria-hidden="true" rel="preconnect" href="/pages/wishlist.php"></a>
             {if isset($type) && $type == "tutors" || $type == "admins"}
-                <a class="fa fa-building liens-header" id="entreprise" aria-hidden="true" rel="preconnect" href="test.html"></a>
-                <a class="fa fa-briefcase liens-header" id="job" aria-hidden="true" rel="preconnect" href="test.html"></a>
+                <a class="fa fa-building liens-header" id="entreprise" aria-hidden="true" rel="preconnect" href="/pages/gestion-entreprise.php"></a>
+                <a class="fa-solid fa-scroll liens-header" id="job" aria-hidden="true" rel="preconnect" href="/pages/gestion-offre.php"></a>
+                <a class="fa fa-users liens-header" id="job" aria-hidden="true" rel="preconnect" href="/pages/gestion-etudiant.php"></a>
+                {if $type == "admins"}
+                    <a class="fa fa-briefcase liens-header" id="job" aria-hidden="true" rel="preconnect" href="/pages/gestion-tuteur.php"></a>
+                {/if}
             {/if}
-            <a class="fa fa-cog liens-header" aria-hidden="true" rel="preconnect" href="test.html"></a>
+            <a class="fa-solid fa-user liens-header" aria-hidden="true" rel="preconnect" href="/pages/profil.php"></a>
         {else}
-            <a class="liens-header boutons-header" rel="preconnect" href="../pages/login.php" title="Connexion">Connexion</a>
+            <a class="liens-header boutons-header" rel="preconnect" href="/pages/login.php" title="Connexion">Connexion</a>
         {/if}
 
     </section>
