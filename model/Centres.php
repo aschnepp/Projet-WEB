@@ -4,10 +4,15 @@ require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php");
 
 class Centres
 {
+    private Model $Model;
+
+    public function __construct(Model $model)
+    {
+        $this->Model = $model;
+    }
     public function getCentresOptions()
     {
-        $Model = new Model;
-        $centres = $Model->select("campus", ["*"], "", false);
+        $centres = $this->Model->select("campus", ["*"], "", false);
 
         foreach ($centres as $centre) {
             $centreNom = htmlspecialchars($centre->campus_name, ENT_QUOTES, 'UTF-8');
@@ -20,8 +25,7 @@ class Centres
 
     public function getCentres()
     {
-        $Model = new Model;
-        $centres = $Model->select("campus", ["*"], "", false);
+        $centres = $this->Model->select("campus", ["*"], "", false);
 
         return $centres;
     }

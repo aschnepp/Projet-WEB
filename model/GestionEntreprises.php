@@ -1,14 +1,15 @@
 <?php
 
-require("{$_SERVER["DOCUMENT_ROOT"]}/model/Offre.php");
+require("{$_SERVER["DOCUMENT_ROOT"]}/model/Entreprise.php");
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $url = $_SERVER['HTTP_REFERER'];
     $Model = new Model;
-    $Offre = new Offre($Model);
+    $Entreprise = new Entreprise($Model);
 
     $data = [
-        'nom' => $_POST['nom-offre'],
+        'nom' => $_POST['nom-entreprise'],
         'secteurs' => $_POST['secteurs'],
         'competences' => $_POST['competences'],
         'entreprise' => $_POST['entreprise-offre'],
@@ -29,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'description' => $_POST['description-offre']
     ];
 
-    $Offre->insertOffer($data);
-    // $Offre->deleteOffer($id);
-    // $Offre->updateOffer($data, $id);
+    $Entreprise->insertFirm($data);
+    // $Entreprise->deleteEntreprise($id);
+    // $Entreprise->updateEntreprise($data, $id);
 }

@@ -97,7 +97,8 @@ class SmartyCatalyst extends Smarty
 
     public function getProfil($userId)
     {
-        $userModel = new User();
+        $Model = new Model;
+        $userModel = new User($Model);
         return $userModel->selectFromUser(["*"], "user_id = " . $userId, true);
     }
 

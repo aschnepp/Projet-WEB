@@ -4,10 +4,15 @@ require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php");
 
 class Promotions
 {
+    private Model $Model;
+
+    public function __construct(Model $model)
+    {
+        $this->Model = $model;
+    }
     public function getPromotionsOptions()
     {
-        $Model = new Model;
-        $promotions = $Model->select("promotions", ["*"], "", false);
+        $promotions = $this->Model->select("promotions", ["*"], "", false);
 
         foreach ($promotions as $promotion) {
             $promotionNom = htmlspecialchars($promotion->promotion_name, ENT_QUOTES, 'UTF-8');
@@ -19,8 +24,7 @@ class Promotions
 
     public function getPromotionsList()
     {
-        $Model = new Model;
-        $promotions = $Model->select("promotions", ["*"], "", false);
+        $promotions = $this->Model->select("promotions", ["*"], "", false);
 
         foreach ($promotions as $promotion) {
             $promotionNom = htmlspecialchars($promotion->promotion_name, ENT_QUOTES, 'UTF-8');
@@ -35,8 +39,7 @@ class Promotions
 
     public function getPromotions()
     {
-        $Model = new Model;
-        $promotions = $Model->select("promotions", ["*"], "", false);
+        $promotions = $this->Model->select("promotions", ["*"], "", false);
 
         return $promotions;
     }

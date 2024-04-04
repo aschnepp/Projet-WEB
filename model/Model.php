@@ -1,7 +1,7 @@
 <?php
 class Model
 {
-    protected PDO $pdo;
+    public PDO $pdo;
     protected array $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_EMULATE_PREPARES => false,
@@ -9,7 +9,7 @@ class Model
     ];
 
 
-    protected string $key;
+    public string $key;
 
     public function __construct()
     {

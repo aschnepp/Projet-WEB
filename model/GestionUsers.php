@@ -3,7 +3,8 @@ require("{$_SERVER["DOCUMENT_ROOT"]}/model/User.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $url = $_SERVER['HTTP_REFERER'];
-    $User = new User;
+    $Model = new Model;
+    $User = new User($Model);
 
     if (str_contains($url, "etudiant")) {
         $type = 'students';
