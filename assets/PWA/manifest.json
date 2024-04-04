@@ -34,15 +34,15 @@
   ],
   "screenshots": [
     {
-      "src": "screen.jpeg",
-      "sizes": "1024x1024",
-      "type": "image/jpeg",
+      "src": "ScreenPaysage.png",
+      "sizes": "1917x915",
+      "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "screen.jpeg",
-      "sizes": "1024x1024",
-      "type": "image/jpeg"
+      "src": "ScreenPortrait.png",
+      "sizes": "395x794",
+      "type": "image/png"
     }
   ]
 }
