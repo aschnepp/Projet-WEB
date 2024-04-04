@@ -73,7 +73,7 @@ class Offre extends Model
                 'duration' => $data['duree'],
                 'remuneration' => $data['remuneration'],
                 'start_date' => $data['date-debut'],
-                'available_places' => $data['dateNaissance'],
+                'available_places' => $data['nombrePlaces'],
                 'closed' => 0,
                 'address_id' => $addressId,
                 'firm_id' => $entrepriseId
@@ -92,7 +92,7 @@ class Offre extends Model
             foreach ($data['competences'] as $competence) {
                 $looksForData = [
                     'offer_id' => $offerId,
-                    'promotion_id' => $competence
+                    'skill_id' => $competence
                 ];
                 $this->insert('Looks_for', $looksForData);
             }
@@ -119,6 +119,91 @@ class Offre extends Model
                 http_response_code(400);
                 throw new Exception("Offre n'existe pas");
             }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            http_response_code(400);
+            exit('Erreur: ' . $e->getMessage());
+        }
+    }
+
+    public function updateOffer(array $data, int $id)
+    {
+        try {
+            $condition = "offer_id = '{$id}'";
+            $offre = $this->select('offers', ['*'], $condition, true);
+
+            $addressId = $offre->address_id;
+
+            $addressData = [
+                'street_name' => $data['rue'],
+                'street_number' => $data['numero']
+            ];
+
+            $this->update('address', $addressData, 'address_id', $addressId);
+
+            $condition = "city_name = '{$data['ville']}' AND postal_code = '{$data['codePostal']}'";
+            $ville = $this->select('cities', ['*'], $condition, true);
+
+            if ($ville) {
+                $cityId = $ville->city_id;
+                $regionId = $ville->region_id;
+            } else {
+                $condition = "region_name = '{$data['region']}'";
+                $regionId = $this->select('regions', ['*'], $condition, true);
+                $villeData = [
+                    'city_name' => $data['ville'],
+                    'postal_code' => $data['codePostal'],
+                    'region_id' => $regionId->region_id
+                ];
+
+                $this->insert('cities', $villeData);
+                $cityId = $this->pdo->lastInsertId();
+            }
+
+            $containsData = [
+                'address_id' => $addressId,
+                'city_id' => $cityId
+            ];
+
+            $this->update('Contains', $containsData, 'address_id', $addressId);
+
+            $entreprise = $this->select('firms', ['*'], "firm_name = '{$data['entreprise']}'");
+
+            $offerData = [
+                'description_offer' => $data['description'],
+                'title' => $data['nom'],
+                'duration' => $data['duree'],
+                'remuneration' => $data['remuneration'],
+                'start_date' => $data['date-debut'],
+                'available_places' => $data['nombrePlaces'],
+                'closed' => 0,
+                'address_id' => $addressId,
+                'firm_id' => $entreprise->firm_id
+            ];
+
+            $this->update('offers', $offerData, 'offer_id', $id);
+
+
+            foreach ($data['promotions'] as $promotionId) {
+                $promotion = $this->select('Concerns', ['*'], "offer_id = {$id} AND promotion_id = {$promotionId}");
+                if ($promotion) {
+                    $existingPromotionId = $promotion->promotion_id;
+
+                    if ($existingPromotionId != $promotionId) {
+                        $concernsData = [
+                            'promotion_id' => $promotionId
+                        ];
+                        $this->update('Concerns', $concernsData, 'offer_id', $id);
+                    }
+                } else {
+                    $concernsData = [
+                        'offer_id' => $id,
+                        'promotion_id' => $promotionId
+                    ];
+                    $this->insert('Concerns', $concernsData);
+                }
+            }
+            http_response_code(200);
         } catch (Exception $e) {
             error_log($e->getMessage());
             http_response_code(400);
