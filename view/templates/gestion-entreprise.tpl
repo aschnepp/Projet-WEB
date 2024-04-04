@@ -32,7 +32,7 @@
 
         <datalist id="liste-regions">
             {foreach from=$regions item=$region key=$key}
-            <option value={$region}>{$region}</option>
+            <option value="{$region}">{$region}</option>
             {/foreach}
         </datalist>
 
