@@ -17,7 +17,7 @@ $name3 = $top[2]->firm_name;
 echo "<script>var logo1 = '$logo1'; var logo2 = '$logo2'; var logo3 = '$logo3'; var name1 = '$name1'; var name2 = '$name2'; var name3 = '$name3';</script>";
 
 // Récupère la répartition des différents secteurs d'activité pour affichage avec API google chart dans le JS
-$sectors = $controller->getSectors();
+$sectors = $controller->getFirmsBySector();
 echo "<script>var sectors = " . json_encode($sectors) . ";</script>";
 
 // Récupère les entreprises par région pour affichage avec API google heatmap dans le JS

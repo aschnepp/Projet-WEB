@@ -121,6 +121,11 @@ class SmartyCatalyst extends Smarty
         return $sectorModel->getSecteurs();
     }
 
+    public function getFirmsBySector()
+    {
+        return $this->model->callProcedure("count_activity_sector_totals");
+    }
+
     public function getFirmInfo(int $id)
     {
         return $this->model->callProcedure("GetFirmInfo", [$id], true);
