@@ -6,7 +6,6 @@
     <meta name="description" content="Page d'accueil de Stage Catalyst.">
     <link rel="preload" href="/assets/styles/index.css" as="style">
     <link rel="stylesheet" href="/assets/styles/index.css">
-    <link rel="stylesheet" href="/assets/fontawesome/css/">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 {/block}
 
