@@ -29,7 +29,7 @@
             {/if}
             <a class="fa fa-cog liens-header" aria-hidden="true" rel="preconnect" href="test.html"></a>
         {else}
-            <a class="liens-header boutons-header" rel="preconnect" href="pages/login.html" title="Connexion">Connexion</a>
+            <a class="liens-header boutons-header" rel="preconnect" href="../pages/login.php" title="Connexion">Connexion</a>
         {/if}
 
     </section>
