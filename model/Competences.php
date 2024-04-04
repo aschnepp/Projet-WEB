@@ -4,10 +4,16 @@ require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php");
 
 class Competences
 {
+    private Model $Model;
+
+    public function __construct(Model $model)
+    {
+        $this->Model = $model;
+    }
+
     public function getCompetencesList()
     {
-        $Model = new Model;
-        $competences = $Model->select("skills", ["*"], "", false);
+        $competences = $this->Model->select("skills", ["*"], "", false);
 
         foreach ($competences as $competence) {
             echo "<li><input type='checkbox' name='competences[]' id='competence-{$competence->skill_id}'>
@@ -21,8 +27,7 @@ class Competences
 
     public function getCompetences()
     {
-        $Model = new Model;
-        $competences = $Model->select("skills", ["*"], "", false);
+        $competences = $this->Model->select("skills", ["*"], "", false);
 
         return $competences;
     }
