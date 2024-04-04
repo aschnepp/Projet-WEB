@@ -82,8 +82,9 @@
                         <ul id="liste-secteurs-activite" class="popup-checkbox">
                             <?php
                             include("{$_SERVER["DOCUMENT_ROOT"]}/model/Secteurs.php");
-                            $Secteurs = new Secteurs;
-                            $Secteurs->getSecteursList();
+                            $Model = new Model;
+                            $Secteurs = new Secteurs($Model);
+                            $Secteurs->getSecteurs();
                             ?>
                         </ul>
                     </div>

@@ -6,8 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $url = $_SERVER['HTTP_REFERER'];
     $Offre = new Offre;
 
-    $type = 'tutors';
-
     $data = [
         'nom' => $_POST['nom-offre'],
         'secteurs' => $_POST['secteurs'],
@@ -31,6 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     $Offre->insertOffer($data);
-    // $User->deleteOffer($id);
-    // $User->modifyOffer($data, $id);
+    // $Offre->deleteOffer($id);
+    // $Offre->updateOffer($data, $id);
 }
