@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $data = [
         'nom' => $_POST['nom-entreprise'],
+
         'secteurs' => $_POST['secteurs'],
         'competences' => $_POST['competences'],
         'entreprise' => $_POST['entreprise-offre'],

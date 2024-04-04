@@ -104,7 +104,7 @@
                                 <li>
                                     <input 
                             {if in_array($secteur,$listeSecteursChecked,true)} checked 
-                            {/if} type="checkbox" id=
+                            {/if} type="checkbox" name="secteurs[]" id=
                             {htmlspecialchars($secteur)}>
                                     <label for=
                             {htmlspecialchars($secteur)}>{$secteur}</label>
