@@ -13,6 +13,7 @@ function submitForm(event) {
         window.location.href = "../index.php";
       } else {
         console.log(xhr.responseText);
+        alert("Connexion échouée");
       }
     }
   };
