@@ -6,6 +6,7 @@
     <meta name="description" content="Page de profil du site 'Stage Catalyst'">
     <link rel="stylesheet" href="../assets/styles/profil.css" />
     <script src="/assets/scripts/cookies.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 {/block}
 
 {block name=main}
