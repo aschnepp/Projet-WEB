@@ -514,7 +514,7 @@ main #affichage-filtre p {
   text-align: center;
 }
 
-main #affichage-filtre button {
+main #affichage-filtre a {
   padding: 0.5rem;
   border-radius: 5px;
   width: auto;
@@ -527,7 +527,7 @@ main #affichage-filtre button {
   margin-bottom: 0.5rem;
 }
 
-main #affichage-filtre button:hover {
+main #affichage-filtre a:hover {
   background-color: var(--blue-dark-contrast-hover);
 }
 

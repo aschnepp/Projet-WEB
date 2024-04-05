@@ -636,3 +636,21 @@ function displayGrade(grade) {
     wrapper.innerHTML = html;
   });
 }
+
+function wishlist(id) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/controller/controllerWishlist.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send("id=" + id);
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        window.location.href =
+          "../pages/search.php?page=1&region-offre-recherche=&date-stage-recherche=&duree-stage-recherche=8&base-remuneration-recherche=4.35&nombre-postulants-recherche=0&places-disponibles-recherche=1&type=Rechercher+Offre";
+      } else {
+        console.log(xhr.responseText);
+      }
+    }
+  };
+}

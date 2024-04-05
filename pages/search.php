@@ -146,9 +146,9 @@ if (isset($_GET)) {
                         <p>'  . $offres[$i]->description_offer . ' </p>
                     </section>
                     <section class="boutons-offre">
-                        <button type="button" class="postuler">Postuler</button>
-                        <button type="button">Modifier offre</button>
-                        <button type="button">Ajouter à la Wishlist</button>
+                        <a class="postuler" href="../pages/postuler.php?id=' . $offres[$i]->offer_id . '">Postuler</a>
+                        <a>Modifier offre</a>
+                        <a href="javascript:wishlist(' . $offres[$i]->offer_id . ')">Ajouter à la Wishlist</a>
                     </section>
                 </section>
                 </section>';
