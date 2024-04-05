@@ -328,7 +328,8 @@ main #menu-burger-flou.flou-actif {
 
 main #menu-burger-main {
   top: 60px;
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
   position: fixed;
   padding: 1.5rem;
   z-index: 10000;
@@ -343,6 +344,80 @@ main #menu-burger-main {
 main #menu-burger-main.affiche {
   right: 0px;
   overscroll-behavior: contain;
+}
+
+#menu-burger-main > section.row-menu-burger {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  cursor: pointer;
+  margin: 1rem 0rem;
+}
+
+#menu-burger-main > section.row-menu-burger > * {
+  margin: 0rem 0.5rem;
+}
+
+#menu-burger-main > section.row-menu-burger > a[class*="fa"] {
+  cursor: pointer;
+  width: 31.2px;
+  height: 31.2px;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  border: solid black 2px;
+  border-radius: 10px;
+  padding: 0.3rem;
+  background-color: var(--blue-white);
+  color: black;
+}
+
+#menu-burger-main > section.row-menu-burger > a[class*="fa"]:hover {
+  filter: invert(1);
+}
+
+#menu-burger-main a.boutons-header {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.3rem 7px;
+  color: black;
+  border: solid black 2px;
+  border-radius: 10px;
+  background: var(--blue-white);
+  position: relative;
+  display: inline-block;
+}
+
+#menu-burger-main a.boutons-header::before {
+  display: block;
+  content: attr(title);
+  font-weight: bold;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+#menu-burger-main a.boutons-header::after {
+  background: transparent;
+  content: "";
+  display: block;
+  height: 2px;
+  bottom: 3px;
+  left: 50%;
+  position: absolute;
+  background: var(--black);
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+
+#menu-burger-main a.boutons-header:hover {
+  font-weight: bold;
+}
+
+#menu-burger-main a.boutons-header:hover::after {
+  width: 85%;
+  left: 8px;
 }
 
 @keyframes apparition-flou {
