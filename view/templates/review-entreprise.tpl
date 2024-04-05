@@ -6,7 +6,6 @@
     <meta name="description" content="Cette page vous permet de noter et commenter une entreprise dans laquelle vous avez effectué un stage." />
     <script rel="preload" src="/assets/scripts/review-entreprise.js"></script>
     <link rel="stylesheet" href="/assets/styles/review-entreprise.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 {/block}
 

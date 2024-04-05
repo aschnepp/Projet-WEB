@@ -8,7 +8,6 @@
     <script rel="preload" src="/assets/scripts/search.js"></script>
     <script rel="preload" src="/assets/scripts/filtre.js"></script>
     <link rel="stylesheet" href="/assets/styles/search.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 {/block}
 
 {block name=main}
