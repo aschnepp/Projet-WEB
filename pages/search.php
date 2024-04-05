@@ -1,102 +1,163 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php
 
-<head>
-    <!-- Main -->
-    <meta charset="UTF-8">
-    <meta name="description" content="Page de recherche.">
-    <title>Recherche</title>
-    <link rel="icon" type="image/x-icon" href="../assets/images/Logo.ico">
+require_once("{$_SERVER["DOCUMENT_ROOT"]}/controller/SmartyCatalyst.php");
+require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Pagination.php");
 
-    <!-- Preload -->
-    <link rel="preload" as="image" href="../assets/images/Logo.webp" type="image/webp">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script rel="preload" src="../assets/scripts/menuburger.js"></script>
-    <script rel="preload" src="../assets/scripts/search.js"></script>
-    <script rel="preload" src="../assets/scripts/filtre.js"></script>
+$model = new Model();
+$smarty = new SmartyCatalyst($model);
+$Pagination = new Pagination($model);
 
-    <!-- Style -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/styles/search.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-</head>
+$skillnames = $smarty->getSkillNames();
+echo "<script> var skillnames = " . json_encode($skillnames) . ";</script>";
 
+$promotions = $smarty->getPromotionsNames();
+echo "<script> var promotions = " . json_encode($promotions) . ";</script>";
 
-<body>
-    <header>
-        <section id="header-gauche">
-            <a href="../index.html" id="image-accueil"><img src="../assets/images/Logo.webp" alt="logo" id="logo" /></a>
-            <p id="header-p">Stage Catalyst</p>
-        </section>
+$regions = $smarty->getRegionsNames();
+echo "<script> var regions = " . json_encode($regions) . ";</script>";
 
-        <section id="header-milieu">
-            <!-- Menu de recherche se fait tout seul dans le JS-->
-        </section>
+if (isset($_GET)) {
+    if (isset($_GET["type"])) {
+        $formType = $_GET["type"];
+        if ($formType == "Rechercher Offre") {
+            if (isset($_GET["region-offre-recherche"])) {
+                $formRegion = $_GET["region-offre-recherche"];
+                if ($formRegion == "") {
+                    $formRegion = NULL;
+                }
+            } else {
+                $formRegion = NULL;
+            }
+            if (isset($_GET["competences-recherche"])) {
+                $formCompetence = $_GET["competences-recherche"];
+            } else {
+                $formCompetence = NULL;
+            }
+            if (isset($_GET["promotions-concernees-recherche"])) {
+                $formPromotion = $_GET["promotions-concernees-recherche"];
+            } else {
+                $formPromotion = NULL;
+            }
+            if (isset($_GET["date-stage-recherche"])) {
+                $formDate = $_GET["date-stage-recherche"];
+                if ($formDate == "") {
+                    $formDate = NULL;
+                }
+            } else {
+                $formDate = NULL;
+            }
+            if (isset($_GET["duree-stage-recherche"])) {
+                $formDuree = $_GET["duree-stage-recherche"];
+            } else {
+                $formDuree = NULL;
+            }
+            if (isset($_GET["base-remuneration-recherche"])) {
+                $formRemuneration = $_GET["base-remuneration-recherche"];
+            } else {
+                $formRemuneration = NULL;
+            }
+            if (isset($_GET["nombre-postulants-recherche"])) {
+                $formPostulants = $_GET["nombre-postulants-recherche"];
+            } else {
+                $formPostulants = NULL;
+            }
+            if (isset($_GET["places-disponibles-recherche"])) {
+                $formDispo = $_GET["places-disponibles-recherche"];
+            } else {
+                $formDispo = NULL;
+            }
 
-        <section id="header-droite">
-            <div id="menu-burger-header">
-                <div class="barre-haut"></div>
-                <div class="barre-milieu"></div>
-                <div class="barre-bas"></div>
-            </div>
+            $offres = $smarty->rechercherOffres($formRegion, $formCompetence, $formPromotion, $formDate, $formDuree, $formRemuneration, $formDispo);
 
-            <!-- Icônes se font tout seul en JS-->
-        </section>
-    </header>
+            $perPage = $Pagination->getPerPage();
+            $nbPages = ceil(count($offres) / $perPage);
 
+            if ($perPage > count($offres)) {
+                $perPage = count($offres);
+            }
+            $page = $_GET['page'];
 
-    <main>
-        <div id="menu-burger-flou">
-            <section id="menu-burger-main">
-            </section>
-        </div>
+            $Offres = "";
 
-        <div id="filtre-cliquable">
-            <button type="button" class="fa-solid fa-filter" id="icone-filtre"></button>
-            <label for="icone-filtre" id="label-icone-filtre" title="Filtrer">Filtrer</label>
-        </div>
-
-        <div id="page-recherche">
-            <section id="recherche-filtre-main">
-                <section id="menu-filtre">
-                    <section id="header-filtre">
-                        <h3>Filtres</h3>
-                        <div>
-                            <button type="button" class="fa-solid fa-xmark" name="fermer-filtre"
-                                id="fermer-filtre"></button>
-                            <label for="fermer-filtre" id="label-fermer-filtre" title="Fermer">Fermer</label>
-                        </div>
+            for ($i = ($page - 1) * $perPage; $i < ($page) * $perPage; $i++) {
+                $Offres .= ' <section class="offre">
+                <section class="headerOffre">
+                    <h3>'  . $offres[$i]->title . ' </h3>
+                    <section class="stats">
+                        <section class="likes item">
+                            <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/hearts.png"
+                                alt="wishlists" />
+                            <p>'  . $offres[$i]->total_wishlist . ' </p>
+                        </section>
+                        <section class="demandes item">
+                            <img width="30" height="30"
+                                src="https://img.icons8.com/ios-glyphs/30/secured-letter--v1.png" alt="demandes" />
+                            <p>'  . $offres[$i]->total_applicants . ' </p>
+                        </section>
                     </section>
-                    <label for="choix-recherche" id="label-menu-filtre">Choix du filtre</label>
-                    <select id="choix-recherche">
-                        <option value="menu-offre" id="menu-offre">Offre</option>
-                        <option value="menu-entreprise" id="menu-entreprise">Entreprise</option>
-                        <option value="menu-etudiant" id="menu-etudiant">Etudiant</option>
-                        <option value="menu-tuteur" id="menu-tuteur">Tuteur</option>
-                    </select>
                 </section>
-                <form id="recherche-menu">
-                </form>
-            </section>
+                
+                <section class="infos">
+                    <section class="competences item">
+                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/learning.png"
+                            alt="learning" />
+                        <p>'  . $offres[$i]->skill_names . ' </p>
+                    </section>
+                    <section class="localisation item">
+                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/map-marker.png"
+                            alt="map-marker" />
+                        <p>'  . $offres[$i]->street_number . '  '  . $offres[$i]->street_name . '  '  . $offres[$i]->postal_code . '  '  . $offres[$i]->city_name . ' </p>
+                    </section>
+                    <section class="entreprise-logo item">
+                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/client-company.png"
+                            alt="client-company" />
+                        <p>'  . $offres[$i]->firm_name . ' </p>
+                    </section>
+                    <section class="promo item">
+                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/reviewer-male.png"
+                            alt="reviewer-male" />
+                        <p>'  . $offres[$i]->promo_names . ' </p>
+                    </section>
+                    <section class="duree item">
+                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/time--v1.png"
+                            alt="time--v1" />
+                        <p>'  . $offres[$i]->duration . '  Semaines</p>
+                    </section>
+                    <section class="date item">
+                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/google-calendar.png"
+                            alt="google-calendar" />
+                        <p>'  . $offres[$i]->start_date . ' </p>
+                    </section>
+                    <section class="remuneration item">
+                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/money--v1.png"
+                            alt="money--v1" />
+                        <p>'  . number_format($offres[$i]->remuneration, 2) . ' € / heure</p>
+                    </section>
+                    <section class="places item">
+                        <img width="30" height="30"
+                            src="https://img.icons8.com/ios-glyphs/30/conference-call--v1.png"
+                            alt="conference-call--v1" />
+                        <p>'  . $offres[$i]->available_places . ' </p>
+                    </section>
+                    <section class="description">
+                        <p>'  . $offres[$i]->description_offer . ' </p>
+                    </section>
+                    <section class="boutons-offre">
+                        <button type="button" class="postuler">Postuler</button>
+                        <button type="button">Modifier offre</button>
+                        <button type="button">Ajouter à la Wishlist</button>
+                    </section>
+                </section>
+                </section>';
+            }
+            $pages = $Pagination->getLinks();
+            $smarty->assign("pagination", $pages);
+            $smarty->assign("offres", $Offres);
+        }
+    }
+}
 
-            <div id="affichage-filtre">
-            </div>
 
-            <!-- TODO: METTRE BOUTON MODIFIER SUR OFFRE ET ENTREPRISES SUR TUTEURS OU ADMIN -->
-        </div>
-    </main>
 
-    <footer>
-        <section id="liens-footer">
-            <a href="cgu.html" title="CGU" class="a-footer">CGU</a>
-            <a href="about.html" title="A Propos" class="a-footer">A Propos</a>
-            <a href="contact.html" title="Contact" class="a-footer">Contact</a>
-        </section>
-        <p>Stage Catalyst © 2024</p>
-    </footer>
-</body>
 
-</html>
+$smarty->display("{$_SERVER["DOCUMENT_ROOT"]}/view/templates/search.tpl");

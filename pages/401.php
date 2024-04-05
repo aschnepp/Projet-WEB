@@ -5,4 +5,4 @@ require_once("{$_SERVER["DOCUMENT_ROOT"]}/controller/SmartyCatalyst.php");
 $model = new Model();
 $smarty = new SmartyCatalyst($model);
 
-$smarty->display("{$_SERVER["DOCUMENT_ROOT"]}/view/templates/login.tpl");
+$smarty->display("{$_SERVER["DOCUMENT_ROOT"]}/view/templates/401.tpl");

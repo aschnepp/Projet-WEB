@@ -81,6 +81,8 @@ main .entreprise .bodyEntreprise {
 
 main .entreprise .description {
   flex: 1 0 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 main .entreprise .description fieldset {
@@ -121,6 +123,7 @@ main .entreprise .description fieldset legend {
   padding: 0.5rem;
 }
 
+
 #afficher-plus {
   background-color: var(--blue-dark-contrast);
   color: var(--white);
@@ -138,8 +141,8 @@ main .entreprise .description fieldset legend {
 
 @media (max-width: 800px) {
   .entreprise {
-    flex-direction: column;
     gap: 1rem;
+    width: 80%;
   }
 }
 

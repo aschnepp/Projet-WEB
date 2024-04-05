@@ -5,11 +5,17 @@ require_once("{$_SERVER["DOCUMENT_ROOT"]}/controller/Cookie.php");
 
 class Pagination
 {
-    private $Model = new Model();
+    private $Model;
+    private $perPage = 2;
 
     public function __construct(Model $model)
     {
         $this->Model = $model;
+    }
+
+    public function getPerPage()
+    {
+        return $this->perPage;
     }
 
     public function getLinks()
@@ -20,12 +26,13 @@ class Pagination
             $tableName = "Wishlists";
         } else if (str_contains($url, "presentation-entreprise")) {
             $tableName = "Reviews";
+        } else if (str_contains($url, "type=Rechercher+Offre")) {
+            $tableName = "OffresDeStage";
         } else {
             $tableName = "Candidates";
         }
 
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $perPage = 1;
         // $start = ($page - 1) * $perPage;
         // $end = $start + $perPage;
 
@@ -40,9 +47,64 @@ class Pagination
                 break;
             case "Reviews":
                 //$firm_id = $_POST['id'];
-                $firm_id = 124;
+                $firm_id = 27;
                 $nbOffers = count($this->Model->select("{$tableName}", ['*'], "firm_id = {$firm_id}", false));
                 break;
+            case "OffresDeStage":
+                if (isset($_GET)) {
+                    if (isset($_GET["type"])) {
+                        $formType = $_GET["type"];
+                        if ($formType == "Rechercher Offre") {
+                            if (isset($_GET["region-offre-recherche"])) {
+                                $formRegion = $_GET["region-offre-recherche"];
+                                if ($formRegion == "") {
+                                    $formRegion = NULL;
+                                }
+                            } else {
+                                $formRegion = NULL;
+                            }
+                            if (isset($_GET["competences-recherche"])) {
+                                $formCompetence = $_GET["competences-recherche"];
+                            } else {
+                                $formCompetence = NULL;
+                            }
+                            if (isset($_GET["promotions-concernees-recherche"])) {
+                                $formPromotion = $_GET["promotions-concernees-recherche"];
+                            } else {
+                                $formPromotion = NULL;
+                            }
+                            if (isset($_GET["date-stage-recherche"])) {
+                                $formDate = $_GET["date-stage-recherche"];
+                                if ($formDate == "") {
+                                    $formDate = NULL;
+                                }
+                            } else {
+                                $formDate = NULL;
+                            }
+                            if (isset($_GET["duree-stage-recherche"])) {
+                                $formDuree = $_GET["duree-stage-recherche"];
+                            } else {
+                                $formDuree = NULL;
+                            }
+                            if (isset($_GET["base-remuneration-recherche"])) {
+                                $formRemuneration = $_GET["base-remuneration-recherche"];
+                            } else {
+                                $formRemuneration = NULL;
+                            }
+                            if (isset($_GET["nombre-postulants-recherche"])) {
+                                $formPostulants = $_GET["nombre-postulants-recherche"];
+                            } else {
+                                $formPostulants = NULL;
+                            }
+                            if (isset($_GET["places-disponibles-recherche"])) {
+                                $formDispo = $_GET["places-disponibles-recherche"];
+                            } else {
+                                $formDispo = NULL;
+                            }
+                        }
+                    }
+                }
+                $nbOffers = count($this->Model->callProcedure("GetFilteredOffers", [$formRegion, $formCompetence, $formPromotion, $formDate, $formDuree, $formRemuneration, $formDispo]));
         }
 
         $noResult = false;
@@ -50,7 +112,7 @@ class Pagination
             $noResult = true;
         }
 
-        $totalPages = ceil($nbOffers / $perPage);
+        $totalPages = ceil($nbOffers / $this->perPage);
         // var_dump($nbOffers);
         // var_dump($totalPages);
 

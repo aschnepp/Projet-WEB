@@ -4,6 +4,7 @@ require "{$_SERVER["DOCUMENT_ROOT"]}/libs/smarty/libs/bootstrap.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/Secteurs.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/Regions.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/User.php";
+require_once "{$_SERVER["DOCUMENT_ROOT"]}/controller/Cookie.php";
 require_once "{$_SERVER["DOCUMENT_ROOT"]}/model/Model.php";
 
 class SmartyCatalyst extends Smarty
@@ -26,6 +27,23 @@ class SmartyCatalyst extends Smarty
         $this->registerPlugin("modifier", "htmlspecialchars", "htmlspecialchars");
 
         $this->model = $model;
+
+        $cookie = new Cookie();
+
+        $user = new User($this->model);
+
+        $cookie = $cookie->decodeCookieData();
+        if ($cookie == false) {
+            $connected = false;
+            $type = null;
+        } else {
+            $ID = $cookie->get("ID");
+            $connected = true;
+            $type = $user->userTypeGet($ID)->typeUtilisateur;
+        }
+
+        $this->assign("connected", $connected);
+        $this->assign("type", $type);
 
         #TODO : REMOVE THIS COMMENT WHEN READY FOR PRODUCTION
         #$this->caching = Smarty::CACHING_LIFETIME_CURRENT;
@@ -97,14 +115,13 @@ class SmartyCatalyst extends Smarty
 
     public function getProfil($userId)
     {
-        $Model = new Model;
-        $userModel = new User($Model);
+        $userModel = new User($this->model);
         return $userModel->selectFromUser(["*"], "user_id = " . $userId, true);
     }
 
-    public function getAddresse($addId)
+    public function getAddresse($addId, bool $unique = false, array $method = [])
     {
-        return $this->model->callProcedure("getAddress", [$addId]);
+        return $this->model->callProcedure("getAddress", [$addId], $unique, $method);
     }
 
     public function getStudent($userId)
@@ -154,5 +171,66 @@ class SmartyCatalyst extends Smarty
         $args[] = $firm_ID;
         $user_ID == null ? $args[] = null : $args[] = $user_ID;
         return $this->model->callProcedure("getFirmReview", $args, true);
+    }
+
+    public function getCommentaires(int $firmId)
+    {
+        return $this->model->select("Reviews", ["*"], "firm_id = {$firmId}", false);
+    }
+
+    public function getSkillNames()
+    {
+        return $this->model->select("skills", ["skill_name"], "", false);
+    }
+
+    public function getPromotionsNames()
+    {
+        return $this->model->select("promotions", ["promotion_name"], "", false);
+    }
+
+    public function getRegionsNames()
+    {
+        return $this->model->select("regions", ["region_name"], "", false);
+    }
+
+    public function userTypeGet(int $ID)
+    {
+        $userModel = new User($this->model);
+        return $userModel->userTypeGet($ID);
+    }
+
+    public function getOffer(int $ID)
+    {
+        return $this->model->callProcedure("getOffer", [$ID], true);
+    }
+
+    public function countOffer()
+    {
+        return $this->model->callProcedure("countOffer", [], true, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function countOfferWishlist(int $ID)
+    {
+        return $this->model->callProcedure("countOfferWishlist", [$ID], true, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function countOfferCandidates(int $ID)
+    {
+        return $this->model->callProcedure("countOfferCandidates", [$ID], true, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function getOfferSkills(int $ID)
+    {
+        return $this->model->callProcedure("getOfferSkills", [$ID], false, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function getOfferPromotions(int $ID)
+    {
+        return $this->model->callProcedure("getOfferPromotions", [$ID], false, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function rechercherOffres($region, $skills, $promotions, $dateDebut, $duree, $salaire, $places)
+    {
+        return $this->model->callProcedure("GetFilteredOffers", [$region, $skills, $promotions, $dateDebut, $salaire, $duree, $places]);
     }
 }

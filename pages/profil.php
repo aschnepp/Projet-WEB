@@ -5,12 +5,16 @@ require $_SERVER['DOCUMENT_ROOT'] . "/controller/SmartyCatalyst.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/model/User.php";
 
 // Initialisation des classes
-$user = new User();
-$controller = new SmartyCatalyst($user);
+$model = new Model();
+$controller = new SmartyCatalyst($model);
 $cookie = new Cookie();
 
 // Récupération des données
 $cookie = $cookie->decodeCookieData();
+if ($cookie == false) {
+    header('Location: ' . "/pages/403.php");
+    exit;
+}
 $ID = $cookie->get("ID");
 $data = $controller->getProfil($ID);
 
@@ -26,7 +30,7 @@ $currentDate = new DateTime();
 $age = $birthdate->diff($currentDate)->y;
 $addresse = $controller->getAddresse($data->address_id)[0];
 $formattedAddress = $addresse->street_number . " " . $addresse->street_name . ", " . $addresse->postal_code . " " . $addresse->city_name;
-$type = $user->userTypeGet($ID)->typeUtilisateur;
+$type = $controller->userTypeGet($ID)->typeUtilisateur;
 
 switch ($type) {
     case "admins":

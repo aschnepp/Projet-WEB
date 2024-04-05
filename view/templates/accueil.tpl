@@ -6,7 +6,6 @@
     <meta name="description" content="Page d'accueil de Stage Catalyst.">
     <link rel="preload" href="/assets/styles/index.css" as="style">
     <link rel="stylesheet" href="/assets/styles/index.css">
-    <link rel="stylesheet" href="/assets/fontawesome/css/">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
 {/block}
 
@@ -24,11 +23,11 @@
                             <section class="stats">
                                 <section id="likes" class="item">
                                     <i class="fa-regular fa-heart fa-2x"></i>
-                                    <p>{$offre->total_wishlist}</p>
+                                    <p>{$total_wishlist}</p>
                                 </section>
                                 <section id="demandes" class="item">
                                     <i class="fa-regular fa-envelope fa-2x"></i>
-                                    <p>{$offre->total_postulation}</p>
+                                    <p>{$total_postulation}</p>
                                 </section>
                             </section>
                         </section>
@@ -39,11 +38,11 @@
                             </section>
                             <section id="localisation" class="item">
                                 <i class="fa-solid fa-map-location-dot fa-2x"></i>
-                                <p>{$offre->address}</p>
+                                <p>{$address}</p>
                             </section>
                             <section id="entreprise-logo" class="item">
                                 <i class="fa-solid fa-building-user fa-2x"></i>
-                                <p>{$offre->firmName}</p>
+                                <p>{$firm->firm_name|default:"Test firm"}</p>
                             </section>
                             <section id="promo" class="item">
                                 <i class="fa-solid fa-user-check fa-2x"></i>
@@ -55,7 +54,7 @@
                             </section>
                             <section id="date" class="item">
                                 <i class="fa-regular fa-calendar-days fa-2x"></i>
-                                <p>{$offre->start_date} - {$offre->end_date}</p>
+                                <p>{$offre->start_date} - {$end_date}</p>
                             </section>
                             <section id="remuneration" class="item">
                                 <i class="fa-solid fa-coins fa-2x"></i>
@@ -68,14 +67,14 @@
                         </section>
                     </section>
                     <section id="boutons">
-                        <button type="button">Actualiser</button>
+                        <button type="button" onclick="location.reload();">Actualiser</button>
                         <button type="button">Postuler</button>
                     </section>
                 </section>
             </fieldset>
         </section>
         <section id="rechercher-plus">
-        <button type="button">Rechercher plus d'offres</button>
+        <button type="button" onclick='window.location.href="/pages/search.php";''>Rechercher plus d'offres</button>
 </section>
 {else}
 <section id="texte">
