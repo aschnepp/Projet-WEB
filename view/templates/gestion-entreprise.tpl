@@ -9,6 +9,7 @@
     <script rel="preload" src="/assets/scripts/previsualisation-logo.js"></script>
     <script rel="preload" src="/assets/scripts/autocomplete-adresses-entreprise.js"></script>
     <script rel="preload" src="/assets/scripts/verification-formulaire.js"></script>
+    <script rel="preload" src="/assets/scripts/gestionEntreprise.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
 {/block}
 
@@ -22,7 +23,7 @@
             {/if}
             d'entreprise
     </h2>
-    <form id="formulaire">
+    <form method="post" id="formulaire" onsubmit="submitForm(event)">
         <section id="nom">
             <label for="nom-entreprise">Nom*</label>
             <div>
@@ -32,7 +33,7 @@
 
         <datalist id="liste-regions">
             {foreach from=$regions item=$region key=$key}
-            <option value={$region}>{$region}</option>
+            <option value="{$region}">{$region}</option>
             {/foreach}
         </datalist>
 
@@ -47,16 +48,16 @@
             <label for="adresse-entreprise-{$value@iteration}">Adresse*</label>
             <label for="street_number-entreprise-{$value@iteration}">Numéro</label>
             <label for="postal_code-entreprise-{$value@iteration}">Code postal*</label>
-            <div><input type="text" name="adresse-entreprise-{$value@iteration}" id="adresse-entreprise-{$value@iteration}" required placeholder="Adresse" value={$value->street_name}></div>
-            <div><input type="text" name="street_number-entreprise-{$value@iteration}" id="street_number-entreprise-{$value@iteration}" required placeholder="Numéro" value={$value->street_number}></div>
-            <div><input type="text" name="postal_code-entreprise-{$value@iteration}" id="postal_code-entreprise-{$value@iteration}" required placeholder="Code Postal" value={$value->postal_code}></div>
+            <div><input type="text" name="adresse-entreprise[{$value@iteration}]" id="adresse-entreprise-{$value@iteration}" required placeholder="Adresse" value={$value->street_name}></div>
+            <div><input type="text" name="street_number-entreprise[{$value@iteration}]" id="street_number-entreprise-{$value@iteration}" required placeholder="Numéro" value={$value->street_number}></div>
+            <div><input type="text" name="postal_code-entreprise[{$value@iteration}]" id="postal_code-entreprise-{$value@iteration}" required placeholder="Code Postal" value={$value->postal_code}></div>
         </section>
 
         <section class="ville-region-entreprise">
             <label for="locality-entreprise-{$value@iteration}">Ville*</label>
             <label for="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}">Region*</label>
-            <div><input type="text" name="locality-entreprise-{$value@iteration}" id="locality-entreprise-{$value@iteration}" required placeholder="Ville" value={$value->city_name}></div>
-            <div><input type="text" name="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}" id="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}" required placeholder="Région" value={$value->region_name} list="liste-regions"></div>
+            <div><input type="text" name="locality-entreprise[{$value@iteration}]" id="locality-entreprise-{$value@iteration}" required placeholder="Ville" value={$value->city_name}></div>
+            <div><input type="text" name="administrative_area_level_1-entreprise[{$value@iteration}]" id="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}" required placeholder="Région" value={$value->region_name} list="liste-regions"></div>
         </section>
         {/foreach}
         {else}
@@ -65,13 +66,13 @@
             <label for="street_number-entreprise-1">Numéro</label>
             <label for="postal_code-entreprise-1">Code postal*</label>
             <div>
-                <input type="text" name="adresse-entreprise-1" id="adresse-entreprise-1" required placeholder="Adresse">
+                <input type="text" name="adresse-entreprise[1]" id="adresse-entreprise-1" required placeholder="Adresse">
             </div>
             <div>
-                <input type="text" name="street_number-entreprise-1" id="street_number-entreprise-1" placeholder="Numéro">
+                <input type="text" name="street_number-entreprise[1]" id="street_number-entreprise-1" placeholder="Numéro">
             </div>
             <div>
-                <input type="text" name="postal_code-entreprise-1" id="postal_code-entreprise-1" required placeholder="Code Postal">
+                <input type="text" name="postal_code-entreprise[1]" id="postal_code-entreprise-1" required placeholder="Code Postal">
             </div>
         </section>
 
@@ -79,10 +80,10 @@
             <label for="locality-entreprise-1">Ville*</label>
             <label for="administrative_area_level_1-entreprise-1">Region*</label>
             <div>
-                <input type="text" name="locality-entreprise-1" id="locality-entreprise-1" required placeholder="Ville">
+                <input type="text" name="locality-entreprise[1]" id="locality-entreprise-1" required placeholder="Ville">
             </div>
             <div>
-                <input type="text" name="administrative_area_level_1-entreprise-1" id="administrative_area_level_1-entreprise-1" required placeholder="Région" list="liste-regions">
+                <input type="text" name="administrative_area_level_1-entreprise[1]" id="administrative_area_level_1-entreprise-1" required placeholder="Région" list="liste-regions">
             </div>
         </section>
         {/if}
@@ -104,10 +105,9 @@
                                 <li>
                                     <input 
                             {if in_array($secteur,$listeSecteursChecked,true)} checked 
-                            {/if} type="checkbox" id=
-                            {htmlspecialchars($secteur)}>
+                            {/if} value="{$secteur}" type="checkbox" name="secteurs[]" id="{htmlspecialchars($secteur)}">
                                     <label for=
-                            {htmlspecialchars($secteur)}>{$secteur}</label>
+                            "{htmlspecialchars($secteur)}">{$secteur}</label>
                                 </li>
                         {/foreach}
                         </ul>
@@ -117,6 +117,7 @@
                     <label for="site-web-entreprise">Site web (Touche "Entrer" pour visualiser le logo)*</label>
                     <div>
                         <input type="text" name="site-web-entreprise" id="site-web-entreprise" required placeholder="Site web" 
+                        {if !empty($entreprise)} value={$entreprise->website} 
                         {if !empty($entreprise)} value={$entreprise->website} 
                         {/if}>
                     </div>

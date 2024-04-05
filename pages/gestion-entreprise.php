@@ -7,8 +7,11 @@ $smarty = new SmartyCatalyst($model);
 
 # firm_id = 125 et user_id = 1 pour une entreprise avec review
 
-$id = 125;
-$user_id = 1;
+$id = 2;
+$user_id = 1; //TODO avec cookies
+
+$id = 0;
+// $user_id = 0;
 
 $smarty->assign("entreprise", $smarty->getFirmInfo($id));
 $smarty->assign("addresses", $smarty->getFirmAdresses($id));

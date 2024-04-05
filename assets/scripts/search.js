@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   ChoixFiltre();
 
-  console.log(skillnames[1]["skill_name"]);
-
   EtatFiltre.addEventListener("change", ChoixFiltre);
 });
 
@@ -55,29 +53,36 @@ function StatsEntreprisesOuOffres() {
 }
 
 function AfficherFiltresOffre() {
-  ClearRecherche();
   let skillnameContent = "";
   for (let i = 0; i < skillnames.length; i++) {
     skillnameContent += `<option value="${skillnames[i]["skill_name"]}">${skillnames[i]["skill_name"]}</option>`;
   }
+  let promotionContent = "";
+  for (let i = 0; i < promotions.length; i++) {
+    promotionContent += `<option value="${promotions[i]["promotion_name"]}">${promotions[i]["promotion_name"]}</option>`;
+  }
+  let regionContent = "";
+  for (let i = 0; i < regions.length; i++) {
+    regionContent += `<option value="${regions[i]["region_name"]}">${regions[i]["region_name"]}</option>`;
+  }
   document.querySelector("#recherche-menu").innerHTML =
-    `                
+    `             
         <section>
         <label for="region-offre-recherche">Region</label>
-        <input type="text" id="region-offre-recherche" list="region-datalist"
+        <input type="text" id="region-offre-recherche" name="region-offre-recherche" list="region-datalist"
             placeholder="Selectionner une région">
         <datalist id="region-datalist">
-            <option value="Pas de région">Pas de région spécifique</option>
-            <option value="test">Paris</option>
-            <option value="provence">Provence</option>
-            <option value="pays">Pays de la Loire</option>
-            <option value="corse">Corse</option>
+            ` +
+    regionContent +
+    `
         </datalist>
     </section>
 
     <section>
         <label for="competences-recherche">Compétences</label>
-        <select id="competences-recherche" multiple="true" size="7">
+        <select id="competences-recherche" name="competences-recherche" size="` +
+    (skillnames.length > 5 ? 5 : skillnames.length) +
+    `">
         ` +
     skillnameContent +
     `
@@ -86,7 +91,12 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="promotions-concernees-recherche">Promotions concernées</label>
-        <select id="promotions-concernees-recherche">
+        <select id="promotions-concernees-recherche" name="promotions-concernees-recherche" size="` +
+    (promotions.length > 5 ? 5 : promotions.length) +
+    `">
+        ` +
+    promotionContent +
+    `
         </select>
     </section>
 
@@ -97,7 +107,7 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="duree-stage-recherche">Durée de stage</label>
-        <input type="range" id="duree-stage-recherche" min="8" max="20" step="1" value="8"
+        <input type="range" id="duree-stage-recherche" name="duree-stage-recherche" min="1" max="32" step="1" value="8"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' semaines minimum'">
         <output>8 semaines minimum</output>
@@ -105,7 +115,7 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="base-remuneration-recherche">Base de rémunération</label>
-        <input type="range" id="base-remuneration-recherche" min="4.35" max="10.00" step="0.15" value="4.35"
+        <input type="range" id="base-remuneration-recherche" name="base-remuneration-recherche" min="4.35" max="10.00" step="0.15" value="4.35"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' € minimum'">
         <output>4.35 € minimum</output>
@@ -113,7 +123,7 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="nombre-postulants-recherche">Nombre de postulants</label>
-        <input type="range" id="nombre-postulants-recherche" min="0" max="30" step="1" value="0"
+        <input type="range" id="nombre-postulants-recherche" name="nombre-postulants-recherche" min="0" max="30" step="1" value="0"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' personnes minimum'">
         <output>0 personnes minimum</output>
@@ -121,197 +131,19 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="places-disponibles-recherche">Places disponibles</label>
-        <input type="range" id="places-disponibles-recherche" min="1" max="15" step="1" value="1"
+        <input type="range" id="places-disponibles-recherche" name="places-disponibles-recherche" min="1" max="15" step="1" value="1"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' minimum'">
         <output>1 minimum</output>
     </section>
 
     <section id="boutons-filtre">
-        <input type="submit" name="rechercher" class="rechercher" value="Rechercher">
+        <input type="submit" class="rechercher"name="type" value="Rechercher Offre">
         <input type="reset" name="reset" id="reset-filtre" value="Réinitialiser">
         <input type="button" name="ajout" class="ajout" value="Ajouter offre"> 
         <a href="stats-offres.php" target="_blank" title="Statistiques d'offres" id="bouton-stats-offres">Statistiques d'offres</a>
     </section>
 `;
-
-  document.querySelector("#affichage-filtre").insertAdjacentHTML(
-    "afterbegin",
-    `
-
-<section class="offre">
-<section class="headerOffre">
-    <h3>Stage Recherche Réseau</h3>
-    <section class="stats">
-        <section class="likes item">
-            <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/hearts.png"
-                alt="wishlists" />
-            <p>3</p>
-        </section>
-        <section class="demandes item">
-            <img width="30" height="30"
-                src="https://img.icons8.com/ios-glyphs/30/secured-letter--v1.png" alt="demandes" />
-            <p>1</p>
-        </section>
-    </section>
-</section>
-
-<section class="infos">
-    <section class="competences item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/learning.png"
-            alt="learning" />
-        <p>IP, NAT, CCNAv7</p>
-    </section>
-    <section class="localisation item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/map-marker.png"
-            alt="map-marker" />
-        <p>2 allée des foulons, 67380 Lingolsheim</p>
-    </section>
-    <section class="entreprise-logo item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/client-company.png"
-            alt="client-company" />
-        <p>CESI Strasbourg</p>
-    </section>
-    <section class="promo item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/reviewer-male.png"
-            alt="reviewer-male" />
-        <p>CPI A2 Info</p>
-    </section>
-    <section class="duree item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/time--v1.png"
-            alt="time--v1" />
-        <p>12 Semaines</p>
-    </section>
-    <section class="date item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/google-calendar.png"
-            alt="google-calendar" />
-        <p>08/04 - 19/07</p>
-    </section>
-    <section class="remuneration item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/money--v1.png"
-            alt="money--v1" />
-        <p>4,35€ / heure</p>
-    </section>
-    <section class="places item">
-        <img width="30" height="30"
-            src="https://img.icons8.com/ios-glyphs/30/conference-call--v1.png"
-            alt="conference-call--v1" />
-        <p>3 places</p>
-    </section>
-    <section class="description">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam. Quas,
-            quaerat.
-            Quisquam
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repellendus cum ea
-            pariatur et
-            modi,
-            laborum quae consequatur doloribus accusantium eligendi aperiam, illo iure autem nobis
-            velit
-            eos
-            facilis. Sapiente!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ipsam sunt magni, saepe,
-            tempore qui odio
-            necessitatibus laboriosam repellat, nobis voluptatem blanditiis rerum placeat libero
-            aliquid
-            sit
-            explicabo maiores molestiae
-        </p>
-    </section>
-    <section class="boutons-offre">
-        <button type="button" class="postuler">Postuler</button>
-        <button type="button">Modifier offre</button>
-        <button type="button">Ajouter à la Wishlist</button>
-    </section>
-</section>
-</section>
-
-<section class="offre">
-<section class="headerOffre">
-    <h3>Stage Recherche Réseau</h3>
-    <section class="stats">
-        <section class="likes item">
-            <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/hearts.png"
-                alt="wishlists" />
-            <p>3</p>
-        </section>
-        <section class="demandes item">
-            <img width="30" height="30"
-                src="https://img.icons8.com/ios-glyphs/30/secured-letter--v1.png" alt="demandes" />
-            <p>1</p>
-        </section>
-    </section>
-</section>
-
-<section class="infos">
-    <section class="competences item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/learning.png"
-            alt="learning" />
-        <p>IP, NAT, CCNAv7</p>
-    </section>
-    <section class="localisation item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/map-marker.png"
-            alt="map-marker" />
-        <p>2 allée des foulons, 67380 Lingolsheim</p>
-    </section>
-    <section class="entreprise-logo item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/client-company.png"
-            alt="client-company" />
-        <p>CESI Strasbourg</p>
-    </section>
-    <section class="promo item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/reviewer-male.png"
-            alt="reviewer-male" />
-        <p>CPI A2 Info</p>
-    </section>
-    <section class="duree item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/time--v1.png"
-            alt="time--v1" />
-        <p>12 Semaines</p>
-    </section>
-    <section class="date item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/google-calendar.png"
-            alt="google-calendar" />
-        <p>08/04 - 19/07</p>
-    </section>
-    <section class="remuneration item">
-        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/money--v1.png"
-            alt="money--v1" />
-        <p>4,35€ / heure</p>
-    </section>
-    <section class="places item">
-        <img width="30" height="30"
-            src="https://img.icons8.com/ios-glyphs/30/conference-call--v1.png"
-            alt="conference-call--v1" />
-        <p>3 places</p>
-    </section>
-    <section class="description">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quibusdam. Quas,
-            quaerat.
-            Quisquam
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam repellendus cum ea
-            pariatur et
-            modi,
-            laborum quae consequatur doloribus accusantium eligendi aperiam, illo iure autem nobis
-            velit
-            eos
-            facilis. Sapiente!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ipsam sunt magni, saepe,
-            tempore qui odio
-            necessitatibus laboriosam repellat, nobis voluptatem blanditiis rerum placeat libero
-            aliquid
-            sit
-            explicabo maiores molestiae
-        </p>
-    </section>
-    <section class="boutons-offre">
-        <button type="button" class="postuler">Postuler</button>
-        <button type="button">Modifier offre</button>
-        <button type="button">Ajouter à la Wishlist</button>
-    </section>
-</section>
-</section>
-`
-  );
   Slider();
 }
 

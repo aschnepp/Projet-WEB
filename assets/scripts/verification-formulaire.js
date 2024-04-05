@@ -895,8 +895,9 @@ function VerifEntreprise() {
   var adressesCPEntreprise = document.querySelectorAll(
     ".adresse-cp-entreprise"
   );
+
   adressesCPEntreprise.forEach((adresse) => {
-    var adresseInput = adresse.querySelector("div:nth-child(4) input");
+    var adresseInput = adresse.querySelector("input[name^='adresse-entreprise']");
     if (adresseInput) {
       ajouterIconeInput(
         adresseInput,
@@ -907,12 +908,12 @@ function VerifEntreprise() {
       });
     }
 
-    var numeroInput = adresse.querySelector("div:nth-child(5) input");
+    var numeroInput = adresse.querySelector("input[name^='street_number-entreprise']");
     if (numeroInput) {
       ajouterIconeInput(numeroInput, VerifNumeroEntreprise(numeroInput.value));
     }
 
-    var codePostalInput = adresse.querySelector("div:nth-child(6) input");
+    var codePostalInput = adresse.querySelector("input[name^='postal_code-entreprise']");
     if (codePostalInput) {
       ajouterIconeInput(
         codePostalInput,
@@ -925,12 +926,12 @@ function VerifEntreprise() {
     ".ville-region-entreprise"
   );
   villesRegionsEntreprise.forEach((villeRegion) => {
-    var villeInput = villeRegion.querySelector("div:nth-child(3) input");
+    var villeInput = villeRegion.querySelector("input[name^='locality-entreprise']");
     if (villeInput) {
       ajouterIconeInput(villeInput, VerifVilleEntreprise(villeInput.value));
     }
 
-    var regionInput = villeRegion.querySelector("div:nth-child(4) input");
+    var regionInput = villeRegion.querySelector("input[name^='administrative_area_level_']");
     if (regionInput) {
       ajouterIconeInput(regionInput, VerifRegionEntreprise(regionInput.value));
     }

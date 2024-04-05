@@ -188,6 +188,11 @@ class SmartyCatalyst extends Smarty
         return $this->model->select("promotions", ["promotion_name"], "", false);
     }
 
+    public function getRegionsNames()
+    {
+        return $this->model->select("regions", ["region_name"], "", false);
+    }
+
     public function userTypeGet(int $ID)
     {
         $userModel = new User($this->model);
@@ -222,5 +227,10 @@ class SmartyCatalyst extends Smarty
     public function getOfferPromotions(int $ID)
     {
         return $this->model->callProcedure("getOfferPromotions", [$ID], false, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function rechercherOffres($region, $skills, $promotions, $dateDebut, $duree, $salaire, $places)
+    {
+        return $this->model->callProcedure("GetFilteredOffers", [$region, $skills, $promotions, $dateDebut, $salaire, $duree, $places]);
     }
 }
