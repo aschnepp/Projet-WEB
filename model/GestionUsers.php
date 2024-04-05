@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'promotion' => $_POST['promotion-etudiant']
         ];
 
-        // $User->insertUser($data, $type);
-        $User->deleteUser(160);
+        $User->insertUser($data, $type);
+        // $User->deleteUser(160);
         // $User->modifyUser($data, $id);
     } else if (str_contains($url, "tuteur")) {
         $type = 'tutors';
