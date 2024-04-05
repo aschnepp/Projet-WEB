@@ -11,6 +11,10 @@ $cookie = new Cookie();
 
 // Récupération des données
 $cookie = $cookie->decodeCookieData();
+if ($cookie == false) {
+    header('Location: ' . "/pages/403.php");
+    exit;
+}
 $ID = $cookie->get("ID");
 $data = $controller->getProfil($ID);
 
