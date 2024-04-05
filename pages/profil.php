@@ -12,7 +12,7 @@ $cookie = new Cookie();
 // Récupération des données
 $cookie = $cookie->decodeCookieData();
 if ($cookie == false) {
-    header('Location: ' . "/pages/403.php");
+    header('Location: ' . "/pages/401.php");
     exit;
 }
 $ID = $cookie->get("ID");
