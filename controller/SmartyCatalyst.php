@@ -12,6 +12,8 @@ class SmartyCatalyst extends Smarty
 
     private Model $model;
 
+    public Cookie $cookie;
+
     public function __construct($model)
     {
         parent::__construct();
@@ -28,16 +30,16 @@ class SmartyCatalyst extends Smarty
 
         $this->model = $model;
 
-        $cookie = new Cookie();
+        $cookieModel = new Cookie();
 
         $user = new User($this->model);
 
-        $cookie = $cookie->decodeCookieData();
-        if ($cookie == false) {
+        $this->cookie = $cookieModel->decodeCookieData();
+        if ($this->cookie == null) {
             $connected = false;
             $type = null;
         } else {
-            $ID = $cookie->get("ID");
+            $ID = $this->cookie->get("ID");
             $connected = true;
             $type = $user->userTypeGet($ID)->typeUtilisateur;
         }
