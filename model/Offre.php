@@ -185,12 +185,19 @@ class Offre
 
             $this->Model->update('offers', $offerData, 'offer_id', $id);
 
+            $currentPromotions = $this->Model->select('Concerns', ['promotion_id'], "offer_id = {$id}", false);
+
+            $currentPromotionIds = [];
+
+            foreach ($currentPromotions as $currentPromotion) {
+                $currentPromotionIds[] = $currentPromotion->promotion_id;
+            }
 
             foreach ($data['promotions'] as $promotionId) {
                 $promotion = $this->Model->select('Concerns', ['*'], "offer_id = {$id} AND promotion_id = {$promotionId}");
                 if ($promotion) {
-                    $existingPromotionId = $promotion->promotion_id;
 
+                    $existingPromotionId = $promotion->promotion_id;
                     if ($existingPromotionId != $promotionId) {
                         $concernsData = [
                             'promotion_id' => $promotionId
@@ -198,6 +205,7 @@ class Offre
                         $this->Model->update('Concerns', $concernsData, 'offer_id', $id);
                     }
                 } else {
+
                     $concernsData = [
                         'offer_id' => $id,
                         'promotion_id' => $promotionId
@@ -205,6 +213,13 @@ class Offre
                     $this->Model->insert('Concerns', $concernsData);
                 }
             }
+
+            foreach ($currentPromotions as $currentPromotion) {
+                if (!in_array($currentPromotion->promotion_id, $data['promotions'])) {
+                    $this->Model->delete('Concerns', 'offer_id', $id, 'promotion_id', $currentPromotion->promotion_id);
+                }
+            }
+
             http_response_code(200);
         } catch (Exception $e) {
             error_log($e->getMessage());

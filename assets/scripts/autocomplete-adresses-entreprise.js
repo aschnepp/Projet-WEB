@@ -4,7 +4,7 @@ var addressCount = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
   initButtons();
-  var addressCount = document.querySelectorAll(".adresse-cp-entreprise").length;
+  addressCount = document.querySelectorAll(".adresse-cp-entreprise").length;
   loadGoogleMaps()
     .then(() => {
       initMap();
@@ -21,24 +21,17 @@ const CONFIGURATION = {
   },
 };
 
-const SHORT_NAME_ADDRESS_COMPONENT_TYPES = new Set([
-  "street_number",
-  "administrative_area_level_1",
-  "postal_code",
-]);
-
 const ADDRESS_COMPONENT_TYPES_IN_FORM = [
-  "street_number",
   "adresse",
+  "street_number",
   "locality",
   "administrative_area_level_1",
   "postal_code",
 ];
 
 function getFormInputElement(componentType, inputNumber) {
-  return document.querySelectorAll(
-    `input[name="${componentType}-entreprise-${inputNumber}"]`
-  );
+  const inputElements = document.querySelectorAll(`input[name^="${componentType}-entreprise[${inputNumber}]"]`);
+  return Array.from(inputElements);
 }
 
 function fillInAddress(place, inputNumber) {
@@ -50,6 +43,7 @@ function fillInAddress(place, inputNumber) {
     }
     return "";
   }
+
   function getComponentText(componentType) {
     if (componentType === "adresse") {
       const route = getComponentName("route");
@@ -62,21 +56,25 @@ function fillInAddress(place, inputNumber) {
   for (const componentType of ADDRESS_COMPONENT_TYPES_IN_FORM) {
     const formInputs = getFormInputElement(componentType, inputNumber);
     formInputs.forEach((input) => {
-      input.value = getComponentText(componentType);
+      if (componentType === "adresse") {
+        input.value = getComponentText("route"); // Autocomplete seulement pour le nom de rue
+      } else {
+        input.value = getComponentText(componentType);
+      }
     });
   }
 }
 
+
 async function initMap() {
   const { Autocomplete } = google.maps.places;
 
-  const autocompleteElements = document.querySelectorAll(
-    '.adresse-cp-entreprise div:first-of-type input[type="text"]:first-of-type'
-  );
+  const autocompleteSections = document.querySelectorAll('.adresse-cp-entreprise');
 
-  autocompleteElements.forEach((inputElement, index) => {
-    const inputName = inputElement.getAttribute("name");
-    const inputNumber = inputName.match(/-(\d+)$/)[1];
+  autocompleteSections.forEach((section, index) => {
+    const inputElement = section.querySelector('input[type="text"]:first-of-type');
+    const inputNumber = index + 1;
+
     const autocomplete = new Autocomplete(inputElement, {
       fields: ["address_components", "geometry", "name"],
       types: ["address"],
@@ -97,16 +95,21 @@ async function initMap() {
 }
 
 function addAddress() {
-  const adresseCpEntreprise = document
-    .querySelector(".adresse-cp-entreprise")
-    .cloneNode(true);
-  const villeRegionEntreprise = document
-    .querySelector(".ville-region-entreprise")
-    .cloneNode(true);
+  const adresseCpEntreprise = document.querySelector(".adresse-cp-entreprise").cloneNode(true);
+  const villeRegionEntreprise = document.querySelector(".ville-region-entreprise").cloneNode(true);
 
   addressCount++;
 
-  adresseCpEntreprise.querySelectorAll("label").forEach((label) => {
+  const inputsToUpdate = adresseCpEntreprise.querySelectorAll("input");
+  inputsToUpdate.forEach((input) => {
+    input.value = "";
+    const inputName = input.getAttribute("name");
+    input.setAttribute("name", inputName.replace(/\[\d+\]/, `[${addressCount}]`));
+    input.id = input.id.replace(/-\d+$/, `-${addressCount}`);
+  });
+
+  const labelsToUpdate = adresseCpEntreprise.querySelectorAll("label");
+  labelsToUpdate.forEach((label) => {
     const inputId = label.getAttribute("for");
     if (inputId) {
       const updatedInputId = inputId.replace(/-\d+$/, `-${addressCount}`);
@@ -114,24 +117,21 @@ function addAddress() {
     }
   });
 
-  adresseCpEntreprise.querySelectorAll("input").forEach((input) => {
+  const inputsToUpdateRegion = villeRegionEntreprise.querySelectorAll("input");
+  inputsToUpdateRegion.forEach((input) => {
     input.value = "";
+    const inputName = input.getAttribute("name");
+    input.setAttribute("name", inputName.replace(/\[\d+\]/, `[${addressCount}]`));
     input.id = input.id.replace(/-\d+$/, `-${addressCount}`);
-    input.name = input.name.replace(/-\d+$/, `-${addressCount}`);
   });
 
-  villeRegionEntreprise.querySelectorAll("label").forEach((label) => {
+  const labelsToUpdateVille = villeRegionEntreprise.querySelectorAll("label");
+  labelsToUpdateVille.forEach((label) => {
     const inputId = label.getAttribute("for");
     if (inputId) {
       const updatedInputId = inputId.replace(/-\d+$/, `-${addressCount}`);
       label.setAttribute("for", updatedInputId);
     }
-  });
-
-  villeRegionEntreprise.querySelectorAll("input").forEach((input) => {
-    input.value = "";
-    input.id = input.id.replace(/-\d+$/, `-${addressCount}`);
-    input.name = input.name.replace(/-\d+$/, `-${addressCount}`);
   });
 
   const ajouterAdresse = document.querySelector("#ajouter-adresse");

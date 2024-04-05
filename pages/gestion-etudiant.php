@@ -127,8 +127,9 @@
                 <datalist id="liste-regions">
                     <?php
                     include("{$_SERVER["DOCUMENT_ROOT"]}/model/Regions.php");
-                    $Regions = new Regions;
-                    $Regions->getRegionsOptions();
+                    $Model = new Model;
+                    $Regions = new Regions($Model);
+                    $Regions->getRegionsList();
                     ?>
                 </datalist>
 
@@ -152,7 +153,8 @@
                             <option value="Choisir">Choisir une promotion</option>
                             <?php
                             include("{$_SERVER["DOCUMENT_ROOT"]}/model/Promotions.php");
-                            $Promotions = new Promotions;
+                            $Model = new Model;
+                            $Promotions = new Promotions($Model);
                             $Promotions->getPromotionsOptions();
                             ?>
                         </select>
@@ -162,7 +164,8 @@
                 <datalist id="liste-centres">
                     <?php
                     include("{$_SERVER["DOCUMENT_ROOT"]}/model/Centres.php");
-                    $Centres = new Centres;
+                    $Model = new Model;
+                    $Centres = new Centres($Model);
                     $Centres->getCentresOptions();
                     ?>
                 </datalist>
