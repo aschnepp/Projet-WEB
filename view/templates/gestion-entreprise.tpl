@@ -27,7 +27,7 @@
         <section id="nom">
             <label for="nom-entreprise">Nom*</label>
             <div>
-                <input type="text" name="nom-entreprise" id="nom-entreprise" required placeholder="Nom" {if !empty($entreprise)} value={$entreprise->firm_name} {/if}>
+                <input type="text" name="nom-entreprise" id="nom-entreprise" required placeholder="Nom" {if !empty($entreprise)} value="{$entreprise->firm_name}" {/if}>
             </div>
         </section>
 
@@ -48,16 +48,16 @@
             <label for="adresse-entreprise-{$value@iteration}">Adresse*</label>
             <label for="street_number-entreprise-{$value@iteration}">Numéro</label>
             <label for="postal_code-entreprise-{$value@iteration}">Code postal*</label>
-            <div><input type="text" name="adresse-entreprise[{$value@iteration}]" id="adresse-entreprise-{$value@iteration}" required placeholder="Adresse" value={$value->street_name}></div>
-            <div><input type="text" name="street_number-entreprise[{$value@iteration}]" id="street_number-entreprise-{$value@iteration}" required placeholder="Numéro" value={$value->street_number}></div>
-            <div><input type="text" name="postal_code-entreprise[{$value@iteration}]" id="postal_code-entreprise-{$value@iteration}" required placeholder="Code Postal" value={$value->postal_code}></div>
+            <div><input type="text" name="adresse-entreprise[{$value@iteration}]" id="adresse-entreprise-{$value@iteration}" required placeholder="Adresse" value="{$value->street_name}"></div>
+            <div><input type="text" name="street_number-entreprise[{$value@iteration}]" id="street_number-entreprise-{$value@iteration}" required placeholder="Numéro" value="{$value->street_number}"></div>
+            <div><input type="text" name="postal_code-entreprise[{$value@iteration}]" id="postal_code-entreprise-{$value@iteration}" required placeholder="Code Postal" value="{$value->postal_code}"></div>
         </section>
 
         <section class="ville-region-entreprise">
             <label for="locality-entreprise-{$value@iteration}">Ville*</label>
             <label for="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}">Region*</label>
-            <div><input type="text" name="locality-entreprise[{$value@iteration}]" id="locality-entreprise-{$value@iteration}" required placeholder="Ville" value={$value->city_name}></div>
-            <div><input type="text" name="administrative_area_level_1-entreprise[{$value@iteration}]" id="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}" required placeholder="Région" value={$value->region_name} list="liste-regions"></div>
+            <div><input type="text" name="locality-entreprise[{$value@iteration}]" id="locality-entreprise-{$value@iteration}" required placeholder="Ville" value="{$value->city_name}"></div>
+            <div><input type="text" name="administrative_area_level_1-entreprise[{$value@iteration}]" id="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}" required placeholder="Région" value="{$value->region_name}" list="liste-regions"></div>
         </section>
         {/foreach}
         {else}
@@ -117,8 +117,7 @@
                     <label for="site-web-entreprise">Site web (Touche "Entrer" pour visualiser le logo)*</label>
                     <div>
                         <input type="text" name="site-web-entreprise" id="site-web-entreprise" required placeholder="Site web" 
-                        {if !empty($entreprise)} value={$entreprise->website} 
-                        {if !empty($entreprise)} value={$entreprise->website} 
+                        {if !empty($entreprise)} value="{$entreprise->website}"
                         {/if}>
                     </div>
                 </section>
@@ -171,7 +170,7 @@
                 </section>
 
                 <section id="bouton-class-id" class="boutons">
-                    <button type="submit" name="submit" value={if !empty($entreprise)}
+                    <button type="submit" name="submit" onclick="submit=this.value;" value={if !empty($entreprise)}
                             "update"
                         {else}
                             "create"
@@ -183,7 +182,7 @@
                         {/if}
                         l'entreprise</button>
                         {if !empty($entreprise)}
-                        <button type="submit" name="submit" value="delete">Supprimer l'entreprise</button>
+                        <button type="submit" name="submit" value="delete" onclick="submit=this.value;">Supprimer l'entreprise</button>
                         {/if}
                     <button type="reset" class="reset" id="reset" value="reset">Réinitialiser</button>
                     <button type="button" onclick="javascript:window.history.back();">Annuler</button>

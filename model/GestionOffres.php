@@ -29,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'description' => $_POST['description-offre']
     ];
 
+    $id = 207;
+
     $Offre->insertOffer($data);
     // $Offre->deleteOffer($id);
     // $Offre->updateOffer($data, $id);

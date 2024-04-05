@@ -15,10 +15,9 @@ function submitForm(event) {
                 } else {
                     alert('Requête bien effectuée sans problèmes.');
                 }
-                window.location.href = "../pages/accueil-login.php";
+                window.location.href = "/index.php";
             } else {
-                alert('Une ou plusieurs erreurs ont survenues, vérifier bien les champs.')
-                console.log(xhr.responseText)
+                alert("Une ou plusieurs erreurs ont survenues, vérifier bien les champs ou alors l'utilisateur n'existe pas.")
             }
         }
     };

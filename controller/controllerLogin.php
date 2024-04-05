@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $User = new User($Model);
     $resultat = $User->selectFromUser(["*"], $condition, true);
     $ID = $resultat->user_id;
+    $connexionAutho = 0;
 
     if ($resultat) {
         $hashedPasswordFromDb = $resultat->password;

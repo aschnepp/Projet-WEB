@@ -11,7 +11,7 @@ class Entreprise
         $this->Model = $model;
     }
 
-    public function insertFirm(array $data)
+    public function insertFirm(array $data, $userId)
     {
         try {
             $condition = "firm_name = '{$data['nom']}'";
@@ -31,6 +31,15 @@ class Entreprise
             $this->Model->insert('firms', $firmsData);
             $firmId = $this->Model->pdo->lastInsertId();
 
+            $reviewData = [
+                'user_id' => $userId,
+                'firm_id' => $firmId,
+                'note' => $data['note'],
+                'comment' => $data['commentaire']
+            ];
+
+            $this->Model->insert('Reviews', $reviewData);
+
             foreach ($data['secteurs'] as $secteurNom) {
                 $Is_aboutData = [
                     'firm_id' => $firmId,
@@ -38,6 +47,8 @@ class Entreprise
                 ];
                 $this->Model->insert('Is_about', $Is_aboutData);
             }
+
+            var_dump($data['adresses']);
 
             foreach ($data['adresses'] as $adresse) {
                 $addressData = [
@@ -92,9 +103,21 @@ class Entreprise
     }
 
 
-    public function updateFirm(array $data, int $id)
+    public function updateFirm(array $data, int $id, int $userId)
     {
         try {
+            $reviewData = [
+                'user_id' => $userId,
+                'firm_id' => $id,
+                'note' => $data['note'],
+                'comment' => $data['commentaire']
+            ];
+
+            if ($this->Model->select('Reviews', ['*'], "user_id = {$userId} AND firm_id = {$id}")) {
+                $this->Model->delete('Reviews', "user_id", $userId, "firm_id", $id);
+            }
+            $this->Model->insert('Review', $reviewData);
+
             $firmsData = [
                 'firm_name' => $data['nom'],
                 'description_firm' => $data['description'],
@@ -131,8 +154,6 @@ class Entreprise
                     $this->Model->delete('Is_about', 'firm_id', $id, 'activity_sector_id', $currentSector->activity_sector_id);
                 }
             }
-
-            //TODO
 
             $currentAddresses = $this->Model->select('Is_at', ['*'], "firm_id = {$id}", false);
 
