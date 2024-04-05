@@ -119,9 +119,9 @@ class SmartyCatalyst extends Smarty
         return $userModel->selectFromUser(["*"], "user_id = " . $userId, true);
     }
 
-    public function getAddresse($addId)
+    public function getAddresse($addId, bool $unique = false, array $method = [])
     {
-        return $this->model->callProcedure("getAddress", [$addId]);
+        return $this->model->callProcedure("getAddress", [$addId], $unique, $method);
     }
 
     public function getStudent($userId)
@@ -192,5 +192,35 @@ class SmartyCatalyst extends Smarty
     {
         $userModel = new User($this->model);
         return $userModel->userTypeGet($ID);
+    }
+
+    public function getOffer(int $ID)
+    {
+        return $this->model->callProcedure("getOffer", [$ID], true);
+    }
+
+    public function countOffer()
+    {
+        return $this->model->callProcedure("countOffer", [], true, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function countOfferWishlist(int $ID)
+    {
+        return $this->model->callProcedure("countOfferWishlist", [$ID], true, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function countOfferCandidates(int $ID)
+    {
+        return $this->model->callProcedure("countOfferCandidates", [$ID], true, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function getOfferSkills(int $ID)
+    {
+        return $this->model->callProcedure("getOfferSkills", [$ID], false, [PDO::FETCH_COLUMN, 0]);
+    }
+
+    public function getOfferPromotions(int $ID)
+    {
+        return $this->model->callProcedure("getOfferPromotions", [$ID], false, [PDO::FETCH_COLUMN, 0]);
     }
 }
