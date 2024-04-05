@@ -24,8 +24,6 @@ class User
             }
 
             $condition = "street_name = '{$data['rue']}' AND street_number = '{$data['numero']}'";
-            $adresse = $this->Model->select('address', ['*'], $condition, true);
-
 
             $addressData = [
                 'street_name' => $data['rue'],
@@ -111,8 +109,8 @@ class User
                     ];
                     $this->Model->insert('Manages', $managesData);
                 }
-                http_response_code(200);
             }
+            http_response_code(200);
         } catch (Exception $e) {
             error_log($e->getMessage());
             http_response_code(400);

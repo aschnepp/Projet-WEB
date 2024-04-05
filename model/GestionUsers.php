@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         $User->insertUser($data, $type);
-        // $User->deleteUser(160);
+        // $User->deleteUser(163);
         // $User->modifyUser($data, $id);
     } else if (str_contains($url, "tuteur")) {
         $type = 'tutors';
@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'promotions' => $_POST['promotions']
         ];
 
-        // $User->insertUser($data, $type);
-        // $User->deleteUser($id);
+        $User->insertUser($data, $type);
+        // $User->deleteUser(164);
         // $User->modifyUser($data, $id);
     } else {
         exit('Vous ne pouvez pas gérer les admins');

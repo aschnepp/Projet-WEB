@@ -8,19 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Model = new Model;
     $Entreprise = new Entreprise($Model);
 
-
-    $bouton = $_POST['submit'];
-    var_dump($bouton);
-    echo "<br>";
-    echo "<br>";
-
-    echo "test";
     $user_id = (int) $_POST['user_id'];
-
-    var_dump($bouton);
-    echo "<br>";
-
-    var_dump($user_id);
 
     $adresses = [];
 
@@ -53,20 +41,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         'description' => $_POST['description-entreprise'],
 
-        'note' => (int) ($_POST['rating']),
+        'note' => (($_POST['rating'])) ? (int) isset($_POST['rating']) : null,
 
         'commentaire' => isset($_POST['commentaire-entreprise']) ? $_POST['commentaire-entreprise'] : "",
 
         'inactive' => isset($_POST['inactivite-entreprise']) ? 1 : 0
     ];
 
-    var_dump($data);
+    // $firm_id = 214;
 
-    if ($bouton == "delete") {
-        $Entreprise->deleteFirm($user_id);
-    } elseif ($bouton == "update") {
-        $Entreprise->updateFirm($data, $user_id);
-    } else {
-        $Entreprise->insertFirm($data);
-    }
+    $Entreprise->insertFirm($data, $user_id);
+    // $Entreprise->updateFirm($data, $firm_id, $user_id);
+    // $Entreprise->deleteFirm($firm_id);
 }

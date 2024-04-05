@@ -170,7 +170,7 @@
                 </section>
 
                 <section id="bouton-class-id" class="boutons">
-                    <button type="submit" name="submit" value={if !empty($entreprise)}
+                    <button type="submit" name="submit" onclick="submit=this.value;" value={if !empty($entreprise)}
                             "update"
                         {else}
                             "create"
@@ -182,7 +182,7 @@
                         {/if}
                         l'entreprise</button>
                         {if !empty($entreprise)}
-                        <button type="submit" name="submit" value="delete">Supprimer l'entreprise</button>
+                        <button type="submit" name="submit" value="delete" onclick="submit=this.value;">Supprimer l'entreprise</button>
                         {/if}
                     <button type="reset" class="reset" id="reset" value="reset">Réinitialiser</button>
                     <button type="button" onclick="javascript:window.history.back();">Annuler</button>

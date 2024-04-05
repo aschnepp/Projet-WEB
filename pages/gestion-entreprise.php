@@ -10,23 +10,23 @@ $cookie = new Cookie();
 // Récupération des données
 $cookie = $cookie->decodeCookieData();
 if ($cookie == false) {
-  header('Location: ' . "/pages/401.php");
-  exit;
-} else {
-  $ID = $cookie->get("ID");
-  $type = $smarty->userTypeGet($ID)->typeUtilisateur;
-  if ($type != "admins" || $type != "tutors") {
     header('Location: ' . "/pages/401.php");
     exit;
-  }
+} else {
+    $ID = $cookie->get("ID");
+    $type = $smarty->userTypeGet($ID)->typeUtilisateur;
+    if ($type != "admins" || $type != "tutors") {
+        header('Location: ' . "/pages/401.php");
+        exit;
+    }
 }
 
 # firm_id = 125 et user_id = 1 pour une entreprise avec review
 
 $id = 2;
 $user_id = $ID; //TODO avec cookies
-
-// $user_id = 0;
+$id = 0;
+$user_id = 80;
 
 $smarty->assign("entreprise", $smarty->getFirmInfo($id));
 $smarty->assign("addresses", $smarty->getFirmAdresses($id));
