@@ -54,11 +54,17 @@ class Model
         }
     }
 
-    public function delete(string $table, string $colname, int $id): void
+    public function delete(string $table, string $colname1, int $id1, string $colname2 = null, int $id2 = null): void
     {
         try {
-            $query = $this->pdo->prepare("DELETE FROM {$table} WHERE {$colname} = :id ;");
-            $query->bindParam(":id", $id, PDO::PARAM_INT);
+            if ($colname2 && $id2) {
+                $query = $this->pdo->prepare("DELETE FROM {$table} WHERE {$colname1} = :value1 AND {$colname2} = :value2");
+                $query->bindParam(":value2", $id2);
+            } else {
+                $query = $this->pdo->prepare("DELETE FROM {$table} WHERE {$colname1} = :value1");
+            }
+
+            $query->bindParam(":value1", $id1);
             $query->execute();
         } catch (Exception $e) {
             error_log($e->getMessage());

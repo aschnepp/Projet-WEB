@@ -26,16 +26,14 @@ class User
             $condition = "street_name = '{$data['rue']}' AND street_number = '{$data['numero']}'";
             $adresse = $this->Model->select('address', ['*'], $condition, true);
 
-            if ($adresse) {
-                $addressId = $adresse->address_id;
-            } else {
-                $addressData = [
-                    'street_name' => $data['rue'],
-                    'street_number' => $data['numero']
-                ];
-                $this->Model->insert('address', $addressData);
-                $addressId = $this->Model->pdo->lastInsertId();
-            }
+
+            $addressData = [
+                'street_name' => $data['rue'],
+                'street_number' => $data['numero']
+            ];
+            $this->Model->insert('address', $addressData);
+            $addressId = $this->Model->pdo->lastInsertId();
+
 
             $condition = "city_name = '{$data['ville']}' AND postal_code = '{$data['codePostal']}'";
             $ville = $this->Model->select('cities', ['*'], $condition, true);
@@ -126,24 +124,27 @@ class User
     {
         try {
             $userType = $this->userTypeGet($id);
-            $this->Model->delete("Reviews", "user_id", $id);
+            $adresse = ($this->selectFromUser(['*'], "user_id = {$id}", true))->address_id;
+
             switch ($userType->typeUtilisateur) {
                 case 'students':
                     $this->Model->delete("Wishlists", "user_id", $id);
                     $this->Model->delete("Candidates", "user_id", $id);
-                    $adresse = $this->Model->select("users", ['*'], "user_id = {$id}", true);
-                    $nbAdresses = $this->Model->select("users", ['*'], "address_id = {$adresse->address_id}", false);
-
-                    if (count($nbAdresses) == 1) {
-                        $this->Model->delete('address', 'address_id', $adresse->address_id);
-                    }
-
                     $this->Model->delete("students", "user_id", $id);
+                    break;
                 case 'tutors':
                     $this->Model->delete('Manages', 'user_id', $id);
                     $this->Model->delete('tutors', 'user_id', $id);
+                    break;
             }
             $this->Model->delete('users', 'user_id', $id);
+            $this->Model->delete("Reviews", "user_id", $id);
+            $nbAdresses = $this->Model->select("users", ['*'], "address_id = {$adresse}", false);
+            if (count($nbAdresses) == 1) {
+                $this->Model->delete('Contains', 'address_id', $adresse);
+                $this->Model->delete('address', 'address_id', $adresse);
+            }
+
             http_response_code(200);
         } catch (Exception $e) {
             error_log($e->getMessage());
@@ -253,23 +254,29 @@ class User
                 ];
                 $this->Model->update('tutors', $tutorData, 'user_id', $id);
 
-                foreach ($data['promotions'] as $promotionId) {
-                    $promotion = $this->Model->select('Manages', ['*'], "user_id = {$id} AND promotion_id = {$promotionId}");
-                    if ($promotion) {
-                        $existingPromotionId = $promotion->promotion_id;
+                $currentPromotions = $this->Model->select('Manages', ['promotion_id'], "user_id = {$id}", false);
 
-                        if ($existingPromotionId != $promotionId) {
-                            $managesData = [
-                                'promotion_id' => $promotionId
-                            ];
-                            $this->Model->update('Manages', $managesData, 'user_id', $id);
-                        }
-                    } else {
-                        $managesData = [
-                            'user_id' => $id,
-                            'promotion_id' => $promotionId
-                        ];
-                        $this->Model->insert('Manages', $managesData);
+                $currentPromotionIds = [];
+
+                foreach ($currentPromotions as $currentPromotion) {
+                    $currentPromotionIds[] = $currentPromotion->promotion_id;
+                }
+
+                foreach ($data['promotions'] as $promotionId) {
+                    if (in_array($promotionId, $currentPromotionIds)) {
+                        continue;
+                    }
+
+                    $managesData = [
+                        'user_id' => $id,
+                        'promotion_id' => $promotionId
+                    ];
+                    $this->Model->insert('Manages', $managesData);
+                }
+
+                foreach ($currentPromotions as $currentPromotion) {
+                    if (!in_array($currentPromotion->promotion_id, $data['promotions'])) {
+                        $this->Model->delete('Manages', 'user_id', $id, 'promotion_id', $currentPromotion->promotion_id);
                     }
                 }
                 http_response_code(200);

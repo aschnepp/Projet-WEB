@@ -122,7 +122,7 @@
                     include("{$_SERVER["DOCUMENT_ROOT"]}/model/Regions.php");
                     $Model = new Model;
                     $Regions = new Regions($Model);
-                    $Regions->getRegions();
+                    $Regions->getRegionsList();
                     ?>
                 </datalist>
 
@@ -148,6 +148,7 @@
                             $Model = new Model;
                             $Promotions = new Promotions($Model);
                             $Promotions->getPromotionsList();
+
                             ?>
                         </ul>
                     </div>
