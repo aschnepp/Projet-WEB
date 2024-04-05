@@ -13,8 +13,14 @@ $controller = new SmartyCatalyst($model);
 $cookie = new Cookie();
 
 // Récupération des données
-$entreprise = $controller->reviewEntreprise($entrepriseID);
 $cookie = $cookie->decodeCookieData();
+if ($cookie == false) {
+    header('Location: ' . "/pages/401.php");
+    exit;
+}
+
+// Récupération des données
+$entreprise = $controller->reviewEntreprise($entrepriseID);
 $ID = $cookie->get("ID");
 if ($entreprise[0]->moyenne_notes) {
     $note = $entreprise[0]->moyenne_notes;
