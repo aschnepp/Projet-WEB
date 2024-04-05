@@ -188,9 +188,19 @@ class SmartyCatalyst extends Smarty
         return $this->model->select("promotions", ["promotion_name"], "", false);
     }
 
+    public function getRegionsNames()
+    {
+        return $this->model->select("regions", ["region_name"], "", false);
+    }
+
     public function userTypeGet(int $ID)
     {
         $userModel = new User($this->model);
         return $userModel->userTypeGet($ID);
+    }
+
+    public function rechercherOffres($region, $skills, $promotions, $dateDebut, $duree, $salaire, $places)
+    {
+        return $this->model->callProcedure("GetFilteredOffers", [$region, $skills, $promotions, $dateDebut, $salaire, $duree, $places]);
     }
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.5.1, created on 2024-04-04 23:45:37
+/* Smarty version 4.5.1, created on 2024-04-05 01:00:43
   from 'C:\Users\maxim\OneDrive\Documents\CESI\A2\4-Développement-WEB\Projet\Projet-WEB\view\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.5.1',
-  'unifunc' => 'content_660f1f8122d8c3_76645876',
+  'unifunc' => 'content_660f311beade62_78177646',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb31ee6ee427b40f3b21ea41ba56311bafd831c3' => 
     array (
       0 => 'C:\\Users\\maxim\\OneDrive\\Documents\\CESI\\A2\\4-Développement-WEB\\Projet\\Projet-WEB\\view\\templates\\header.tpl',
-      1 => 1712267132,
+      1 => 1712271524,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_660f1f8122d8c3_76645876 (Smarty_Internal_Template $_smarty_tpl) {
+function content_660f311beade62_78177646 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header>
     <section id="header-gauche">
         <a href="/index.php" id="image-accueil"><img src="/assets/images/Logo.webp" alt="logo" id="logo" /></a>
@@ -30,7 +30,7 @@ function content_660f1f8122d8c3_76645876 (Smarty_Internal_Template $_smarty_tpl)
     <section id="header-milieu">
         <?php if ((isset($_smarty_tpl->tpl_vars['connected']->value)) && $_smarty_tpl->tpl_vars['connected']->value) {?>
             <input type="text" name="recherche" id="recherche" placeholder="Rechercher">
-            <i class="fa fa-search" id="loupe" aria-hidden="true"></i>
+            <a class="fa fa-search liens-header" id="loupe" aria-hidden="true" href="/pages/search.php"></a>
         <?php } else { ?>
         <?php }?>
     </section>

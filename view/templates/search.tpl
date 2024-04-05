@@ -18,6 +18,7 @@
     </div>
     <div id="page-recherche">
         <section id="recherche-filtre-main">
+            <form method="get">   
             <section id="menu-filtre">
                 <section id="header-filtre">
                     <h3>Filtres</h3>
@@ -27,13 +28,14 @@
                     </div>
                 </section>
                 <label for="choix-recherche" id="label-menu-filtre">Choix du filtre</label>
-                <select id="choix-recherche">
+                <select id="choix-recherche" name="choix-recherche">
                     <option value="menu-offre" id="menu-offre">Offre</option>
                     <option value="menu-entreprise" id="menu-entreprise">Entreprise</option>
                     <option value="menu-etudiant" id="menu-etudiant">Etudiant</option>
                     <option value="menu-tuteur" id="menu-tuteur">Tuteur</option>
                 </select>
             </section>
+            </form>
             <form id="recherche-menu">
             </form>
         </section>

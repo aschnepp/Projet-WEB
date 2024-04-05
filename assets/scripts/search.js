@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   ChoixFiltre();
 
-  console.log(skillnames[1]["skill_name"]);
-
   EtatFiltre.addEventListener("change", ChoixFiltre);
 });
 
@@ -60,24 +58,32 @@ function AfficherFiltresOffre() {
   for (let i = 0; i < skillnames.length; i++) {
     skillnameContent += `<option value="${skillnames[i]["skill_name"]}">${skillnames[i]["skill_name"]}</option>`;
   }
+  let promotionContent = "";
+  for (let i = 0; i < promotions.length; i++) {
+    promotionContent += `<option value="${promotions[i]["promotion_name"]}">${promotions[i]["promotion_name"]}</option>`;
+  }
+  let regionContent = "";
+  for (let i = 0; i < regions.length; i++) {
+    regionContent += `<option value="${regions[i]["region_name"]}">${regions[i]["region_name"]}</option>`;
+  }
   document.querySelector("#recherche-menu").innerHTML =
-    `                
+    `             
         <section>
         <label for="region-offre-recherche">Region</label>
-        <input type="text" id="region-offre-recherche" list="region-datalist"
+        <input type="text" id="region-offre-recherche" name="region-offre-recherche" list="region-datalist"
             placeholder="Selectionner une région">
         <datalist id="region-datalist">
-            <option value="Pas de région">Pas de région spécifique</option>
-            <option value="test">Paris</option>
-            <option value="provence">Provence</option>
-            <option value="pays">Pays de la Loire</option>
-            <option value="corse">Corse</option>
+            ` +
+    regionContent +
+    `
         </datalist>
     </section>
 
     <section>
         <label for="competences-recherche">Compétences</label>
-        <select id="competences-recherche" multiple="true" size="7">
+        <select id="competences-recherche" name="competences-recherche" size="` +
+    (skillnames.length > 5 ? 5 : skillnames.length) +
+    `">
         ` +
     skillnameContent +
     `
@@ -86,7 +92,12 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="promotions-concernees-recherche">Promotions concernées</label>
-        <select id="promotions-concernees-recherche">
+        <select id="promotions-concernees-recherche" name="promotions-concernees-recherche" size="` +
+    (promotions.length > 5 ? 5 : promotions.length) +
+    `">
+        ` +
+    promotionContent +
+    `
         </select>
     </section>
 
@@ -97,7 +108,7 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="duree-stage-recherche">Durée de stage</label>
-        <input type="range" id="duree-stage-recherche" min="8" max="20" step="1" value="8"
+        <input type="range" id="duree-stage-recherche" name="duree-stage-recherche" min="1" max="32" step="1" value="8"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' semaines minimum'">
         <output>8 semaines minimum</output>
@@ -105,7 +116,7 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="base-remuneration-recherche">Base de rémunération</label>
-        <input type="range" id="base-remuneration-recherche" min="4.35" max="10.00" step="0.15" value="4.35"
+        <input type="range" id="base-remuneration-recherche" name="base-remuneration-recherche" min="4.35" max="10.00" step="0.15" value="4.35"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' € minimum'">
         <output>4.35 € minimum</output>
@@ -113,7 +124,7 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="nombre-postulants-recherche">Nombre de postulants</label>
-        <input type="range" id="nombre-postulants-recherche" min="0" max="30" step="1" value="0"
+        <input type="range" id="nombre-postulants-recherche" name="nombre-postulants-recherche" min="0" max="30" step="1" value="0"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' personnes minimum'">
         <output>0 personnes minimum</output>
@@ -121,14 +132,14 @@ function AfficherFiltresOffre() {
 
     <section>
         <label for="places-disponibles-recherche">Places disponibles</label>
-        <input type="range" id="places-disponibles-recherche" min="1" max="15" step="1" value="1"
+        <input type="range" id="places-disponibles-recherche" name="places-disponibles-recherche" min="1" max="15" step="1" value="1"
             autocomplete="off" class="slider"
             oninput="this.nextElementSibling.value = this.value + ' minimum'">
         <output>1 minimum</output>
     </section>
 
     <section id="boutons-filtre">
-        <input type="submit" name="rechercher" class="rechercher" value="Rechercher">
+        <input type="submit" class="rechercher"name="type" value="Rechercher Offre">
         <input type="reset" name="reset" id="reset-filtre" value="Réinitialiser">
         <input type="button" name="ajout" class="ajout" value="Ajouter offre"> 
         <a href="stats-offres.php" target="_blank" title="Statistiques d'offres" id="bouton-stats-offres">Statistiques d'offres</a>
