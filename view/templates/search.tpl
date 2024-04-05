@@ -40,6 +40,8 @@
             </form>
         </section>
         <div id="affichage-filtre">
+        {$offres nofilter}
+        {$pagination nofilter}
         </div>
         <!-- TODO: METTRE BOUTON MODIFIER SUR OFFRE ET ENTREPRISES SUR TUTEURS OU ADMIN -->
     </div>
