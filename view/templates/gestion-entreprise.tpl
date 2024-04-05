@@ -118,7 +118,6 @@
                     <div>
                         <input type="text" name="site-web-entreprise" id="site-web-entreprise" required placeholder="Site web" 
                         {if !empty($entreprise)} value={$entreprise->website} 
-                        {if !empty($entreprise)} value={$entreprise->website} 
                         {/if}>
                     </div>
                 </section>
