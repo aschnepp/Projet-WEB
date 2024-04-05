@@ -66,7 +66,11 @@ function AfficherFiltresOffre() {
     regionContent += `<option value="${regions[i]["region_name"]}">${regions[i]["region_name"]}</option>`;
   }
   document.querySelector("#recherche-menu").innerHTML =
-    `             
+    `    
+    
+    <input type="hidden" id="id-offre-recherche" name="page" value="` +
+    page +
+    `">
         <section>
         <label for="region-offre-recherche">Region</label>
         <input type="text" id="region-offre-recherche" name="region-offre-recherche" list="region-datalist"

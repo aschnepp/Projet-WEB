@@ -4,6 +4,15 @@ require $_SERVER['DOCUMENT_ROOT'] . "/controller/SmartyCatalyst.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/model/Model.php";
 require_once("{$_SERVER["DOCUMENT_ROOT"]}/model/Pagination.php");
 
+$cookie = new Cookie();
+
+// Récupération des données
+$cookie = $cookie->decodeCookieData();
+if ($cookie == false) {
+    header('Location: ' . "/pages/401.php");
+    exit;
+}
+
 // Temporaire
 $entrepriseID = 27; // ID de l'entreprise
 $nentreprise = 0; // Index de l'entreprise si une entreprise a plusieurs adresses

@@ -16,6 +16,9 @@ echo "<script> var promotions = " . json_encode($promotions) . ";</script>";
 $regions = $smarty->getRegionsNames();
 echo "<script> var regions = " . json_encode($regions) . ";</script>";
 
+$page = $_GET['page'];
+echo "<script> var page = " . $page . ";</script>";
+
 if (isset($_GET)) {
     if (isset($_GET["type"])) {
         $formType = $_GET["type"];
@@ -75,7 +78,7 @@ if (isset($_GET)) {
             if ($perPage > count($offres)) {
                 $perPage = count($offres);
             }
-            $page = $_GET['page'];
+
 
             $Offres = "";
 

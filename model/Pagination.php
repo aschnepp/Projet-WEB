@@ -118,24 +118,32 @@ class Pagination
 
         $links = "<div id='pagination'>";
 
+        $url = substr($url, strpos($url, ".php") + 4);
+        $link = '?page=' . $page . substr($url, strpos($url, "?") + (6 + strlen((string)$page)));
+
         if (($page - 1) > 1 && !$noResult) {
-            $links .= '<a href="?page=1">Première</a>';
+            $link0 = '?page=' . (1) . substr($url, strpos($url, "?") + (6 + strlen((string)$page)));
+            $links .= '<a href="' . $link0 . '">Première</a>';
         }
 
         if ($page > 1 && !$noResult) {
-            $links .= '<a href="?page=' . ($page - 1) . '">Précédente</a>';
+            $link1 = '?page=' . ($page - 1) . substr($url, strpos($url, "?") + (6 + strlen((string)$page)));
+            $links .= '<a href="' . $link1 . '">Précédente</a>';
         }
 
         if (!$noResult) {
-            $links .= '<a href="?page=' . $page . '" ' . "class='active'>" . $page . '</a>';
+            $link2 = '?page=' . ($page) . substr($url, strpos($url, "?") + (6 + strlen((string)$page)));
+            $links .= '<a href="' . $link2 . '" ' . "class='active'>" . $page . '</a>';
         }
 
         if ($page < $totalPages  && !$noResult) {
-            $links .= '<a href="?page=' . ($page + 1) . '">Suivante</a>';
+            $link3 = '?page=' . ($page + 1) . substr($url, strpos($url, "?") + (6 + strlen((string)$page)));
+            $links .= '<a href="' . $link3 . '">Suivante</a>';
         }
 
         if (($page + 1) < $totalPages && !$noResult) {
-            $links .= '<a href="?page=' . $totalPages . '">Dernière</a>';
+            $link4 = '?page=' . ($totalPages) . substr($url, strpos($url, "?") + (6 + strlen((string)$page)));
+            $links .= '<a href="' . $link4 . '">Dernière</a>';
         }
 
         $links .= "</div>";

@@ -4,15 +4,16 @@
 {/block}
 {block name=head append}
     <meta name="description" content="Page de profil du site 'Stage Catalyst'">
-    <link rel="stylesheet" href="../assets/styles/profil.css" />
+    <link rel="stylesheet" href="/assets/styles/profil.css" />
     <script src="/assets/scripts/cookies.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 {/block}
 
 {block name=main}
     <section class="profile">
         <h1>Profil</h1>
         <section>
-            <img src="../assets/fontawesome/svgs/solid/user.svg" alt="Icône utilisateur par défaut" id="fa-user">
+            <img src="/assets/fontawesome/svgs/solid/user.svg" alt="Icône utilisateur par défaut" id="fa-user">
             <section id="info">
                 <section>
                     <p>Prénom</p>
@@ -71,7 +72,7 @@
         </section>
         <section id="btn-section">
         <form id="myForm" method="post" onsubmit="disconnect(event)">
-            <button type="submit"><img src="../assets/fontawesome/svgs/solid/arrow-right-from-bracket.svg" alt="Icône 'Se déconnecter'">Se déconnecter</button>
+            <button type="submit"><img src="/assets/fontawesome/svgs/solid/arrow-right-from-bracket.svg" alt="Icône 'Se déconnecter'">Se déconnecter</button>
         </form>
         </section>
     </section>

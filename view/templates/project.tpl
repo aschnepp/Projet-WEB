@@ -12,7 +12,7 @@
     <script rel="preload" src="/assets/scripts/menuburger.js"></script>
 
     <!-- Style -->
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat" as="style">
     <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
 
     <!-- PWA -->
@@ -26,6 +26,40 @@
     <main>
         <div id="menu-burger-flou">
             <section id="menu-burger-main">
+            {if isset($connected) && $connected}
+                <section class="row-menu-burger">
+                    <a class="fa fa-heart liens-header" id="wishlist" aria-hidden="true" rel="preconnect" href="/pages/wishlist.php"></a>
+                    <p>Wishlist</p>
+                </section>
+            {if isset($type) && $type == "tutors" || $type == "admins"}
+                <section class="row-menu-burger">
+                    <a class="fa fa-building liens-header" id="entreprise" aria-hidden="true" rel="preconnect" href="/pages/gestion-entreprise.php"></a>
+                    <p>Création entreprise</p>
+                </section>
+                <section class="row-menu-burger">
+                    <a class="fa-solid fa-scroll liens-header" id="job" aria-hidden="true" rel="preconnect" href="/pages/gestion-offre.php"></a>
+                    <p>Création d'offre</p>
+                </section>
+                <section class="row-menu-burger">
+                    <a class="fa fa-users liens-header" id="student" aria-hidden="true" rel="preconnect" href="/pages/gestion-etudiant.php"></a>
+                    <p>Création d'étudiant</p>
+                </section>
+                {if $type == "admins"}
+                    <section class="row-menu-burger">
+                        <a class="fa fa-briefcase liens-header" id="tutors" aria-hidden="true" rel="preconnect" href="/pages/gestion-tuteur.php"></a>
+                        <p>Création de tuteur</p>
+                    </section>
+                {/if}
+            {/if}
+                <section class="row-menu-burger">
+                    <a class="fa-solid fa-user liens-header" aria-hidden="true" rel="preconnect" href="/pages/profil.php"></a>
+                    <p>Profil</p>
+                </section>
+            {else}
+                <section class="row-menu-burger">
+                    <a class="liens-header boutons-header" rel="preconnect" href="/pages/login.php" title="Connexion">Connexion</a>
+                </section>
+            {/if}
             </section>
         </div>
         {block name=main}

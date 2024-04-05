@@ -4,9 +4,8 @@
 {/block}
 {block name=head append}
     <meta name="description" content="Presentation entreprise.">
-    <script rel="preload" src="../assets/scripts/presentation-entreprise.js"></script>
-    <link rel="stylesheet" href="../assets/styles/presentation-entreprise.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script rel="preload" src="/assets/scripts/presentation-entreprise.js"></script>
+    <link rel="stylesheet" href="/assets/styles/presentation-entreprise.css" />
 {/block}
 {block name=main}
     <section class="entreprise">
