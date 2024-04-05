@@ -57,7 +57,7 @@
             <label for="locality-entreprise-{$value@iteration}">Ville*</label>
             <label for="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}">Region*</label>
             <div><input type="text" name="locality-entreprise[{$value@iteration}]" id="locality-entreprise-{$value@iteration}" required placeholder="Ville" value={$value->city_name}></div>
-            <div><input type="text" name="administrative_area_level_1-entreprise[{$value@iteration}]" id="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}" required placeholder="Région" value={$value->region_name} list="liste-regions"></div>
+            <div><input type="text" name="administrative_area_level_1-entreprise[{$value@iteration}]" id="administrative_area_level_{$value@iteration}-entreprise-{$value@iteration}" required placeholder="Région" value="{$value->region_name}" list="liste-regions"></div>
         </section>
         {/foreach}
         {else}
@@ -117,7 +117,6 @@
                     <label for="site-web-entreprise">Site web (Touche "Entrer" pour visualiser le logo)*</label>
                     <div>
                         <input type="text" name="site-web-entreprise" id="site-web-entreprise" required placeholder="Site web" 
-                        {if !empty($entreprise)} value={$entreprise->website} 
                         {if !empty($entreprise)} value={$entreprise->website} 
                         {/if}>
                     </div>
