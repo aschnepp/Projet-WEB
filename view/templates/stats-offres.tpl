@@ -7,10 +7,10 @@
     <meta name="description" content="Cette page vous permet de voir les statistiques des différentes offres de la plateforme." />
     <link rel="preconnect" href="https://maps.googleapis.com" />
     <link rel="preconnect" href="https://logo.clearbit.com" />
-    <script rel="preload" src="../assets/scripts/stats-offres.js"></script>
-    <link rel="stylesheet" href="../assets/styles/stats-offres.css" />
+    <script rel="preload" src="/assets/scripts/stats-offres.js"></script>
+    <link rel="stylesheet" href="/assets/styles/stats-offres.css" />
     <script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="../assets/scripts/stats-offres.js"></script>
+    <script src="/assets/scripts/stats-offres.js"></script>
 {/block}
 
 {block name=main}
