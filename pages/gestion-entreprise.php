@@ -23,8 +23,8 @@ if ($cookie == false) {
 
 # firm_id = 125 et user_id = 1 pour une entreprise avec review
 
-$id = 2;
-$user_id = $ID; //TODO avec cookies
+#$id = 2;
+#$user_id = $ID; //TODO avec cookies
 $id = 0;
 $user_id = 80;
 

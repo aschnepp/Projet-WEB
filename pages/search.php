@@ -79,7 +79,6 @@ if (isset($_GET)) {
                 $perPage = count($offres);
             }
 
-
             $Offres = "";
 
             for ($i = ($page - 1) * $perPage; $i < ($page) * $perPage; $i++) {

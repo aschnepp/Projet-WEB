@@ -65,17 +65,13 @@ class Cookie
             return false;
         }
     }
+
+
+    // agiannazzo0@friendfeed.com Email (ETUDIANT)
+    // fM2%Q5SedD MDP (ETUDIANT)
+    // $2a$04$NvjHgx/q9GY7BiI0KSbf5eAs5x4kpCgKPLefQNuuzTNR.DQ9A.rVW MDP (BDD)
+
+    // tszymczyk1y@trellian.com (TUTEUR)
+    // xU3}&<yv}?P MDP (TUTEUR) // $2a$04$W4VmgzS2spIADIc5esNOvOnqbaCKP/KO8xaKZYlHfPY9AeDXX38Nq MDP (BDD) // chartropp2i@newsvine.com (ADMIN) // oM3@v3_X4{nhO,2$ MDP (ADMIN) // $2a$04$rB3nqVuo6Y6XzneY5MxIMOvAFiZIXBdpLexU8JGsG8i2d61v0eOFa MDP (BDD)
+
 }
-
-
-// agiannazzo0@friendfeed.com Email (ETUDIANT) 
-// fM2%Q5SedD    MDP (ETUDIANT)
-// $2a$04$NvjHgx/q9GY7BiI0KSbf5eAs5x4kpCgKPLefQNuuzTNR.DQ9A.rVW     MDP (BDD)
-
-// tszymczyk1y@trellian.com (TUTEUR)
-// xU3}&<yv}?P   MDP (TUTEUR)        
-// $2a$04$W4VmgzS2spIADIc5esNOvOnqbaCKP/KO8xaKZYlHfPY9AeDXX38Nq     MDP (BDD)    
-
-// chartropp2i@newsvine.com (ADMIN)
-// oM3@v3_X4{nhO,2$   MDP (ADMIN)       
-// $2a$04$rB3nqVuo6Y6XzneY5MxIMOvAFiZIXBdpLexU8JGsG8i2d61v0eOFa     MDP (BDD)    

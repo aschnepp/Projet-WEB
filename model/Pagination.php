@@ -133,7 +133,7 @@ class Pagination
 
         if (!$noResult) {
             $link2 = '?page=' . ($page) . substr($url, strpos($url, "?") + (6 + strlen((string)$page)));
-            $links .= '<a href="' . $link2 . '" ' . "class='active'>" . $page . '</a>';
+            $links .= '<a href="' . $link2 . '" ' . "class='active'>" . $page . " / " . $totalPages . '</a>';
         }
 
         if ($page < $totalPages  && !$noResult) {
