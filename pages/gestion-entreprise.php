@@ -8,7 +8,7 @@ $smarty = new SmartyCatalyst($model);
 $cookie = new Cookie();
 
 // Récupération des données
-$cookie = $cookie->decodeCookieData();
+/* $cookie = $cookie->decodeCookieData();
 if ($cookie == false) {
     header('Location: ' . "/pages/401.php");
     exit;
@@ -19,7 +19,7 @@ if ($cookie == false) {
         header('Location: ' . "/pages/401.php");
         exit;
     }
-}
+} */
 
 # firm_id = 125 et user_id = 1 pour une entreprise avec review
 
